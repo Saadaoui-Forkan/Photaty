@@ -54,7 +54,7 @@ router.get('/me', protect, getCurrentUser)
 // @access    Private
 const storage = multer.diskStorage({
   destination: function (req,file,cb){
-      cb(null,path.join(__dirname,"../../client/src/images/uploads"));
+      cb(null,path.join(__dirname,"../../client/src/assets/profile"));
   },
   filename: function (req,file,cb){
       cb(null, new Date().toISOString().replace(/:/g, "-") + file.originalname);
