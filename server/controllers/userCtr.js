@@ -93,7 +93,7 @@ const loginUser = async(req,res) => {
 // Get Current User
 const getCurrentUser = async(req, res) => {
     try {
-        const user = await User.findById(req.user.id).select('-password -confirmPassword');
+        const user = await User.findById(req.user.id)
         res.json(user)
     } catch (error) {
         console.log(error)
@@ -101,8 +101,31 @@ const getCurrentUser = async(req, res) => {
     }
 }
 
+// Update User Profile
+const updateProfile = async(req, res) => {
+    try {
+      let profile = await User.findById(req.user.id);
+      const { name, bio, status, avatar } = req.body;
+      profile.name = name;
+      profile.bio = bio;
+      profile.status = status;
+      profile.avatar = req.file ? req.file.filename : avatar;
+
+      await profile.save();
+
+      res.status(200).json({
+        msg: "success",
+        data: profile,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send("Server error");
+    }
+}
+
 module.exports = {
     registerUser,
     loginUser,
-    getCurrentUser
+    getCurrentUser,
+    updateProfile
 }
