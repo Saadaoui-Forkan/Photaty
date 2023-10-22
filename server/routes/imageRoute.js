@@ -1,4 +1,4 @@
-const { createImg, allImages, imageId, userImages, userImageId, likeImg, unLikeImg } = require('../controllers/ImgCtr')
+const { createImg, allImages, imageId, userImages, userImageId, likeImg, unLikeImg, commentImg } = require('../controllers/ImgCtr')
 const protect = require('../middleware/AuthMiddleware')
 const { check } = require('express-validator')
 const router = require('express').Router()
@@ -67,5 +67,11 @@ router.put('/like/:id', protect, likeImg)
 // @desc    Like An Image
 // @access  Private
 router.put('/unlike/:id', protect, unLikeImg)
+
+// @route   api/images/comment/:id
+// @method  POST
+// @desc    Comment An Image
+// @access  Private
+router.post('/comment/:id', protect, commentImg)
 
 module.exports = router
