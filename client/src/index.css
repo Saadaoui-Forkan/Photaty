@@ -4,6 +4,14 @@
   padding: 0;
 }
 
+:root {
+  --color1: #29BF12;
+  --color2 : #ABFF4F;
+  --color3 : #08BDBD;
+  --color4 : #F21B3F;
+  --color5 : #FF9914;
+}
+
 /* font-family: 'Playpen Sans', cursive;
 font-family: 'Poppins', sans-serif;
 font-family: 'Roboto', sans-serif; */
