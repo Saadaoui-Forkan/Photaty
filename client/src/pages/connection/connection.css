@@ -1,0 +1,148 @@
+.register, .login {
+  width: 100vw;
+  height: 100vh;
+  background-color: #f0f2f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginWrapper {
+  width: 70%;
+  height: 70%;
+  display: flex;
+}
+
+.loginLeft,
+.loginRight {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.loginLogo {
+  margin-bottom: 10px;
+  width: 260px;
+  height: auto;
+  object-fit: contain;
+}
+
+.loginDesc {
+  font-size: 20px;
+  font-weight: bold;
+  width: 80%;
+  text-align: center;
+}
+
+.photaty {
+  font-family: "Playpen Sans", cursive;
+  color: #42b72a;
+  margin-left: 10px;
+}
+
+.loginBox {
+  height: 400px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.login .loginBox{
+    height: 250px;
+}
+
+.loginInput {
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid gray;
+  font-size: 18px;
+  padding-left: 20px;
+}
+
+.loginInput:focus {
+  outline: none;
+  border: 2px solid #000;
+}
+
+.loginButton {
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  background-color: #1775ee;
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  width: 80%;
+}
+
+.btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btn p {
+  font-size: 14px;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+}
+
+.btn .span {
+  font-family: "Playpen Sans", cursive;
+  color: #42b72a;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* responsive */
+/* breakpoint:
+    576px
+    768px
+    992px
+    1200px
+*/
+@media (max-width: 992px) {
+    .loginWrapper {
+        width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .loginWrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .loginLeft {
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .loginDesc {
+        font-size: 15px;
+        width: 60%;
+    }
+    .loginLogo {
+        margin-bottom: -5px;
+    }
+    .loginRight {
+        width: 90%;
+    }
+    .loginInput {
+        height: 35px;
+        font-size: 15px;
+        padding-left: 15px;
+    }
+    .loginButton {
+        height: 35px;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        width: 80%;
+    }
+}
