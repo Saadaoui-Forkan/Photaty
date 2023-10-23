@@ -12,7 +12,7 @@ function ImageCard() {
           className="img"
         />
         <span className="read-more">
-            <Link to='/imageDetails'><i className="fa-regular fa-square-plus"></i></Link>
+            <Link to='/image'><i className="fa-regular fa-square-plus"></i></Link>
         </span>
       </div>
       <div className="menu-description">
@@ -23,7 +23,9 @@ function ImageCard() {
         />
         <div className="menu-info">
           <h3 className="title">Image Title</h3>
-          <p className="date">00-00-0000</p>
+          <p className="date">
+            created by: <span>Author</span> at:<span>00-00-0000</span>
+          </p>
         </div>
       </div>
 

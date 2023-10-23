@@ -1,11 +1,13 @@
 import React from 'react'
 import './views.css'
 import ImageCard from './ImageCard'
+import Header from './Header'
 
 function ImageContainer() {
   return (
     <div className="container">
-        <h3 className="headeing">Photaty</h3>
+      <Header/>
+        {/* <h3 className="headeing">Photaty</h3> */}
         <div className="menu-container">
             <ImageCard />
             <ImageCard />

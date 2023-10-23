@@ -1,30 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Ms+Madi&family=Square+Peg&display=swap');
-
+/* 
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     text-decoration: none;
     text-transform: capitalize;
-}
+} */
 .container{
-    width: 90%;
-    margin: 0 auto;
+    width: 100%;
     background: #eee;
 }
-.container .headeing{
+/* .container .headeing{
     font-size: 3.2rem;
     color: #333;
     margin-bottom: 3rem;
     text-align: center;
     font-family: 'Playpen Sans', cursive;
-}
+} */
 .container .menu-container{
     display:flex;
     justify-content: center;
     flex-wrap: wrap;
 }
-.container .menu-container .menu{
+.menu{
     text-align: center;
     padding: 0.5rem;
     background: #fff;
@@ -35,6 +34,7 @@
     outline: 0.1rem solid #000;
     width: 300px;
     margin: 1rem;
+    margin-top: 110px;
 }
 .menu-img {
     position: relative;
@@ -87,6 +87,7 @@
 }
 .date {
     margin-top: 8px;
+    font-size: 13px;
 }
 .menu-like {
     display: flex;
@@ -104,4 +105,46 @@
 }
 .like i, .dislike i {
     cursor: pointer
+}
+.header {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    background-color: var(--color3);
+    position: fixed;
+    width: 100%;
+    z-index: 50;
+    justify-content: space-around;
+    border-bottom: 2px solid var(--color4)
+}
+.header-img {
+    width: 190px;
+    object-fit: contain;
+}
+.header-search {
+    display: flex;
+    position: relative;
+}
+.header-search-input {
+    width: 250px;
+    height: 35px;
+    padding: 10px;
+    border: 2px solid var(--color1);
+    border-radius: 20px;
+    color: var(--color1);;
+}
+.span-icon {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    color: #fff;
+    background-color: var(--color1);
+    width: 42px;
+    height: 35px;
+    border-radius: 0 20px 20px 0;
+    cursor: pointer;
+}
+i.fa-solid.fa-magnifying-glass {
+    line-height: 35px;
+    margin-left: 15px
 }
