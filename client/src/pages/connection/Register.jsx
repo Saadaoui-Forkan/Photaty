@@ -29,11 +29,9 @@ function Register() {
     .then(res => {
       setFormData(res?.data)
       navigate("/login")
-      // console.log(res.data)
     })
     .catch(error => {
       setError(error?.response?.data?.message)
-      console.log(error.response.data.message)
     })
   }
   return (
