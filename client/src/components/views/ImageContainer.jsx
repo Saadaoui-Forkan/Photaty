@@ -3,17 +3,23 @@ import './views.css'
 import ImageCard from './ImageCard'
 import Header from './Header'
 
-function ImageContainer() {
+function ImageContainer({images}) {
+  console.log(images)
   return (
     <div className="container">
       <Header/>
-        {/* <h3 className="headeing">Photaty</h3> */}
         <div className="menu-container">
-            <ImageCard />
-            <ImageCard />
-            <ImageCard />
-            <ImageCard />
-            <ImageCard />
+          {
+            images.map((img, index)=>(
+              <ImageCard 
+                key={index}
+                photo={img.photo}
+                title={img.title}
+                author={img.author}
+                createdAt={img.createdAt}
+              />
+            ))
+          }
         </div>
 
     </div>

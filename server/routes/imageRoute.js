@@ -11,7 +11,7 @@ const path = require('path')
 // @access    Private
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "../../client/src/assets/images"));
+    cb(null, path.join(__dirname, "../../client/src/assets/images/"));
   },
   filename: function (req, file, cb) {
     cb(null, new Date().toISOString().replace(/:/g, "-") + file.originalname);
@@ -25,7 +25,6 @@ router.post(
     [
       check("title", "Please enter a title").not().isEmpty(),
       check("description", "Please enter a description ").not().isEmpty(),
-      check("category", "Please enter a category").not().isEmpty(),
     ],
     protect,
   ],

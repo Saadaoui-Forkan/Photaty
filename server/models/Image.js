@@ -13,10 +13,6 @@ const ImageSchema = new Schema({
     type: String,
     required: true
   },
-  category: {
-    type: String,
-    required: true
-  },
   photo: {
     type: Object,
     default: {

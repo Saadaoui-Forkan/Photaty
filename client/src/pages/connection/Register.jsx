@@ -29,6 +29,12 @@ function Register() {
     .then(res => {
       setFormData(res?.data)
       navigate("/login")
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
     })
     .catch(error => {
       setError(error?.response?.data?.message)

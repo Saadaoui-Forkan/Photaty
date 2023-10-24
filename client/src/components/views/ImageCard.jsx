@@ -1,14 +1,17 @@
 import React from 'react'
 import './views.css'
 import { Link } from 'react-router-dom';
+import moment from 'moment'
 
-function ImageCard() {
+function ImageCard(props) {
+  const {photo, title, author, createdAt} = props
+  
   return (
     <div className="menu">
       <div className="menu-img">
         <img
-          src="https://media.istockphoto.com/id/1225514613/photo/man-relaxed-writing-and-working-with-digital-mobile-smart-phone-laptop-computer-with-coffee.jpg?s=1024x1024&w=is&k=20&c=oaT0wkc9HyBTsok1zFVXdKiGdWrxaxpE6z8xyEbM46o="
-          alt="imag"
+          src= {require(`../../assets/images/${photo}`)}
+          alt={`${title}`}
           className="img"
         />
         <span className="read-more">
@@ -22,9 +25,9 @@ function ImageCard() {
           className="avatar"
         />
         <div className="menu-info">
-          <h3 className="title">Image Title</h3>
+          <h3 className="title">{title}</h3>
           <p className="date">
-            created by: <span>Author</span> at:<span>00-00-0000</span>
+            created by: <span>{author}</span> at:<span>{moment(createdAt).format('DD-MM-YYYY')}</span>
           </p>
         </div>
       </div>

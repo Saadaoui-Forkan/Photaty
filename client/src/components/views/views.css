@@ -41,10 +41,12 @@
     overflow: hidden;
     cursor: pointer;
 }
-.img{
+.img {
     width: 100%;
     transform: scale(1);
     transition: all 1s ease-in-out;
+    height: 270px;
+    object-fit: contain;
 }
 .read-more {
     position: absolute;

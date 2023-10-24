@@ -35,7 +35,9 @@ const createImg = async (req, res) => {
 // Get All Images
 const allImages = async (req, res) => {
   try {
-    const posts = await Image.find().sort({ date: -1 });
+    let posts = await Image.find()
+      .sort({ date: -1 })
+      .populate("user", "name avatar id");
     res.json(posts);
   } catch (error) {
     console.log(error.message);
@@ -129,24 +131,23 @@ const unLikeImg = async (req, res) => {
 };
 
 // Comment An Image
-const commentImg = async(req, res) => {
+const commentImg = async (req, res) => {
   try {
-    const user = await User.findById( req.user.id )
-    const post = await Image.findById( req.params.id )
+    const user = await User.findById(req.user.id);
+    const post = await Image.findById(req.params.id);
     const newComment = {
       text: req.body.text,
       name: user.name,
-      user: req.user.id
-    }
-    post.comments.unshift(newComment)
-    await post.save()
-    res.json(post.comments)
-
+      user: req.user.id,
+    };
+    post.comments.unshift(newComment);
+    await post.save();
+    res.json(post.comments);
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Server Error");
   }
-}
+};
 
 module.exports = {
   createImg,
@@ -156,5 +157,5 @@ module.exports = {
   userImageId,
   likeImg,
   unLikeImg,
-  commentImg
+  commentImg,
 };
