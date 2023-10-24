@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import moment from 'moment'
 
 function ImageCard(props) {
-  const {photo, title, author, createdAt} = props
-  
+  const {photo, title, author, createdAt, avatar} = props
+  console.log(author)
   return (
     <div className="menu">
       <div className="menu-img">
@@ -20,7 +20,7 @@ function ImageCard(props) {
       </div>
       <div className="menu-description">
         <img
-          src="https://cdn.pixabay.com/photo/2017/02/25/22/04/user-icon-2098873_1280.png"
+          src={avatar}
           alt="avatar"
           className="avatar"
         />
