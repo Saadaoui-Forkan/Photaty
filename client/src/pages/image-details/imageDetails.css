@@ -3,8 +3,18 @@
     margin: 30px auto;
 }
 
-.image {
+.image-container {
     width: 100%;
+    background-color: var(--color3);
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image {
+    width: 80%;
+    margin: 5% auto;
 }
 
 .image-info-1 {
