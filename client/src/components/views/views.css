@@ -91,6 +91,9 @@
     margin-top: 8px;
     font-size: 13px;
 }
+.date span {
+    font-weight: bold;
+}
 .menu-like {
     display: flex;
     justify-content: space-around;

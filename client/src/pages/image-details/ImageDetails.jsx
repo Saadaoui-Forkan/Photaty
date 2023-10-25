@@ -1,9 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './imageDetails.css'
 import avatar from '../../assets/photaty/avatar-profile.png'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
+import moment from 'moment'
 
 function ImageDetails() {
+  let { imgId } = useParams()
+  // console.log(imgId)
+  const [imageId, setImageId] = useState([]);
+  /**
+   * Get all image by id
+   */
+
+  useEffect(() => {
+    getImage();
+  }, [imageId]);
+
+  const getImage = async () => {
+    try {
+      const res = await axios.get(`/api/images/all/${imgId}`);
+      setImageId(res?.data);
+    } catch (error) {
+      console.log(error.message)
+    }
+  };
   return (
     <div className="image-details">
         <Link to='/' className='back'>
@@ -12,8 +33,8 @@ function ImageDetails() {
         </Link>
       <div className="image-container">
         <img
-          src="https://wallpapers.com/images/hd/hd-river-in-the-mountains-kgb9wrcm1wmrfa5m.jpg"
-          alt=""
+          src= {imageId.photo ? require(`../../assets/images/${imageId.photo}`) : "" }         
+          alt={imageId.title}
           className="image"
         />
       </div>
@@ -23,7 +44,7 @@ function ImageDetails() {
           <div className="author-avatar">
             <img src={avatar} alt="" className="author-avatar-img" />
           </div>
-          <h2 className="author-name">Author</h2>
+          <h2 className="author-name">{imageId.user?.name}</h2>
         </div>
         <div className="likes">
           <div className="like">
@@ -38,15 +59,10 @@ function ImageDetails() {
 
       <div className="image-details-info-2">
         <div className="date">
-            <h2>Ceated at: 12-34-5678</h2>
+            <h2>Ceated at: {moment(imageId.date).format('DD-MM-YYYY')}</h2>
         </div>
         <div className="details">
-            <p>
-                Lorem ipsum dolor sit, 
-                amet consectetur adipisicing elit. 
-                Fugiat quos exercitationem qui odio 
-                esse magni non neque a. At, adipisci!
-            </p>
+            <p>{imageId.description}</p>
         </div>
       </div>
 
@@ -55,7 +71,7 @@ function ImageDetails() {
             <h2>23 comments</h2>
         </div>
         <div className="comment-input">
-            <input type="text" placeholder='Add your comment ........'/>
+            <input type="text" placeholder='Add your comment ...'/>
             <button>Add a comment</button>
         </div>
         {/* <div className="all-comments">

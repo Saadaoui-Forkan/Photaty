@@ -18,6 +18,7 @@ function ImageContainer({images}) {
                 author={img.user.name}
                 createdAt={img.createdAt}
                 avatar={img.user.avatar.url}
+                imageId={img._id}
               />
             ))
           }

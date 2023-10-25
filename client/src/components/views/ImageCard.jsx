@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import moment from 'moment'
 
 function ImageCard(props) {
-  const {photo, title, author, createdAt, avatar} = props
-  console.log(author)
+  
+  const {photo, title, author, createdAt, avatar, imageId} = props
+  console.log(title)
+  
   return (
     <div className="menu">
       <div className="menu-img">
@@ -15,7 +17,7 @@ function ImageCard(props) {
           className="img"
         />
         <span className="read-more">
-            <Link to='/image'><i className="fa-regular fa-square-plus"></i></Link>
+            <Link to={`/api/images/all/${imageId}`}><i className="fa-regular fa-square-plus"></i></Link>
         </span>
       </div>
       <div className="menu-description">

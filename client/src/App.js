@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         {/* <Route path="/profile" element={<Profile />} /> */}
-        <Route path="image" element={<ImageDetails />} />
+        <Route path="/api/images/all/:imgId" element={<ImageDetails />} />
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

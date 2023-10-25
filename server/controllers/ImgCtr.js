@@ -48,7 +48,11 @@ const allImages = async (req, res) => {
 // Get Image By Id
 const imageId = async (req, res) => {
   try {
-    const post = await Image.findById(req.params.img_id);
+    const post = await Image.findById(req.params.img_id).populate(
+      "user",
+      "name avatar id"
+    );
+    // if(error) throw error
     res.json(post);
   } catch (error) {
     console.log(error.message);
