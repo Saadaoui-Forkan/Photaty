@@ -1,45 +1,91 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import './views.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import moment from 'moment'
+import axios from "axios";
+import Alert from "../alert/Alert";
 
 function ImageCard(props) {
+  const navigate = useNavigate();
+  const [error, setError] = useState('')
+  const [like, setLike] = useState([])
+  const [id, setId] = useState(null)
+  const {photo, title, author, createdAt, avatar, imageId, likes} = props
+  const user = JSON.parse(localStorage.getItem('user'))
   
-  const {photo, title, author, createdAt, avatar, imageId} = props
-  console.log(title)
-  
+  /**
+   * Like An Image
+  */
+  // useEffect(() => {
+  //   likeImage();
+  // }, [likes]);
+  const likeImage = async () => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+    
+    await axios
+      .put(`/api/images/like/${imageId}`, like, {
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": user.data.token,
+        },
+      })
+      .then((res) => {
+        setLike(res.data)
+      })
+      .catch((err) => setError(err.response.data.msg)); 
+  };
+
+  /**
+   * Unlike An Image
+  */
+ const unLikeImage = async() => {
+  await axios
+  .put(`/api/images/unlike/${imageId}`, like, {
+    headers: {
+      "Content-Type": "application/json",
+      "x-auth-token": user.data.token,
+    },
+  })
+  .then((res) => {
+    setLike(res.data)
+  })
+  .catch((err) => setError(err.response.data.msg)); 
+};
   return (
     <div className="menu">
       <div className="menu-img">
         <img
-          src= {require(`../../assets/images/${photo}`)}
+          src={require(`../../assets/images/${photo}`)}
           alt={`${title}`}
           className="img"
         />
         <span className="read-more">
-            <Link to={`/api/images/all/${imageId}`}><i className="fa-regular fa-square-plus"></i></Link>
+          <Link to={`/${imageId}`}>
+            <i className="fa-regular fa-square-plus"></i>
+          </Link>
         </span>
       </div>
       <div className="menu-description">
-        <img
-          src={avatar}
-          alt="avatar"
-          className="avatar"
-        />
+        <img src={avatar} alt="avatar" className="avatar" />
         <div className="menu-info">
           <h3 className="title">{title}</h3>
           <p className="date">
-            created by: <span>{author}</span> at:<span>{moment(createdAt).format('DD-MM-YYYY')}</span>
+            created by: <span>{author}</span> at:
+            <span>{moment(createdAt).format("DD-MM-YYYY")}</span>
           </p>
         </div>
       </div>
 
       <div className="menu-like">
-        <div className="like">
+        {error  && <Alert error={error}/>}
+        <div className="like" onClick={()=>likeImage()}>
           <i className="fa-regular fa-thumbs-up"></i>
-          200
+          {likes.length === 0 ? '' : likes.length}
         </div>
-        <div className="dislike">
+        <div className="dislike" onClick={()=>unLikeImage()}>
           <i className="fa-regular fa-thumbs-down"></i>
         </div>
       </div>

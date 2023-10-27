@@ -7,8 +7,7 @@ function Home() {
   const [images, setImages] = useState([]);
   /**
    * Get all images
-   */
-
+  */
   useEffect(() => {
     getImages();
   }, []);
@@ -25,7 +24,9 @@ function Home() {
   return (
     <>
       <Navbar />
-      <ImageContainer images={images} />
+      <ImageContainer 
+        images={images} 
+      />
     </>
   );
 }

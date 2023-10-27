@@ -4,7 +4,7 @@ import ImageCard from './ImageCard'
 import Header from './Header'
 
 function ImageContainer({images}) {
-  // console.log(images)
+  
   return (
     <div className="container">
       <Header/>
@@ -19,6 +19,7 @@ function ImageContainer({images}) {
                 createdAt={img.createdAt}
                 avatar={img.user.avatar.url}
                 imageId={img._id}
+                likes={img.likes}
               />
             ))
           }

@@ -52,7 +52,6 @@ const imageId = async (req, res) => {
       "user",
       "name avatar id"
     );
-    // if(error) throw error
     res.json(post);
   } catch (error) {
     console.log(error.message);
@@ -86,7 +85,7 @@ const userImageId = async (req, res) => {
 // Like An Image
 const likeImg = async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
+    const post = await Image.findById(req.params.id);
     // Check if the post has already been likred
     if (
       post.likes.filter((like) => like.user.toString() === req.user.id).length >
@@ -109,9 +108,9 @@ const likeImg = async (req, res) => {
 // UnLike An Image
 const unLikeImg = async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
+    const post = await Image.findById(req.params.id);
 
-    // Check if the post has been likred
+    // Check if the post has been liked
     if (
       post.likes.filter((like) => like.user.toString() === req.user.id)
         .length === 0

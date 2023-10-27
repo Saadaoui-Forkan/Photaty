@@ -23,7 +23,7 @@ function Navbar() {
             <div className="avatar-container">
               <img src={avatar} alt="Logo" className="logo" />
               <button className="avatar-edit" disabled>
-                <i className="fa-solid fa-user-pen"></i>
+                <Link to='/profile'><i className="fa-solid fa-user-pen"></i></Link>
               </button>
             </div>
             <ul className="list">

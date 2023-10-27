@@ -25,7 +25,7 @@ function Register() {
 
   const onSubmit = async e => {
     e.preventDefault()  
-    axios.post('/api/users/register', formData)
+    await axios.post('/api/users/register', formData)
     .then(res => {
       setFormData(res?.data)
       navigate("/login")
