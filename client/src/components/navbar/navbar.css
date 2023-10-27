@@ -112,6 +112,6 @@
   font-size: 20px;
   cursor: pointer;
 }
-.avatar-edit:disabled {
+button.avatar-edit:disabled {
   cursor: not-allowed;
 }

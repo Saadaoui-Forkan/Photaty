@@ -2,12 +2,15 @@ import React, { useState } from 'react'
 import './navbar.css'
 import avatar from '../../assets/photaty/avatar-profile.png'
 import { Link } from 'react-router-dom'
+import NavbarHome from './NavbarHome';
+import NavbarProfile from './NavbarProfile';
 
 function Navbar() {
   const [visible, setVisible] = useState(false);
   const visibleNav = () => {
     setVisible(!visible);
   };
+  const user = JSON.parse(localStorage.getItem('user'))
   return (
     <div className="navbar">
       <button className="nav-btn open-btn" onClick={visibleNav}>
@@ -22,35 +25,17 @@ function Navbar() {
             </button>
             <div className="avatar-container">
               <img src={avatar} alt="Logo" className="logo" />
-              <button className="avatar-edit" disabled>
-                <Link to='/profile'><i className="fa-solid fa-user-pen"></i></Link>
-              </button>
+              <Link to="/profile">
+                <button className="avatar-edit" disabled={user ? false : true}>
+                  <i className="fa-solid fa-user-pen"></i>
+                </button>
+              </Link>
             </div>
-            <ul className="list">
-              <Link className='a' to="/">
-                <li >Home</li>
-              </Link>
-              <Link className='a' to="/Login">
-                <li >Login</li>
-              </Link>
-              <Link className='a' to="/register">
-                <li >Register</li>
-              </Link>
-            </ul>
-
-            {/* --------- */}
-            {/* <ul className="list">
-              <Link to="/">
-                <li >Home</li>
-              </Link>
-              <Link to="/addImage">
-                <li >Add Image</li>
-              </Link>
-              <Link to="/login">
-                <li >Logout</li>
-              </Link>
-            </ul> */}
-            {/* --------- */}
+            {
+              user ? <NavbarProfile /> : <NavbarHome />
+            }
+            
+            
           </div>
         </div>
       </div>
