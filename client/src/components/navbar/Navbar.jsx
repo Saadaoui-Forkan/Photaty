@@ -33,9 +33,7 @@ function Navbar() {
             </div>
             {
               user ? <NavbarProfile /> : <NavbarHome />
-            }
-            
-            
+            } 
           </div>
         </div>
       </div>

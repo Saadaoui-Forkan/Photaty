@@ -8,6 +8,9 @@ function NavbarProfile() {
       <Link className="a" to="/">
         <li>Home</li>
       </Link>
+      <Link className="a" to="/profile">
+        <li>Profile</li>
+      </Link>
       <Link className="a" to="/Login">
         <li>Logout</li>
       </Link>

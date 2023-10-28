@@ -1,23 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Ms+Madi&family=Square+Peg&display=swap');
-/* 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-decoration: none;
-    text-transform: capitalize;
-} */
 .container{
     width: 100%;
     background: #eee;
 }
-/* .container .headeing{
-    font-size: 3.2rem;
-    color: #333;
-    margin-bottom: 3rem;
-    text-align: center;
-    font-family: 'Playpen Sans', cursive;
-} */
 .container .menu-container{
     display:flex;
     justify-content: center;

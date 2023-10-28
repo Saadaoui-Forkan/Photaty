@@ -1,0 +1,113 @@
+.profile {
+    display: flex;
+}
+.photo-profile {
+    border: 2px solid #cac8c8;
+    width: 100%;
+}
+.header-profile {
+    border-bottom: 2px solid #cac8c8;
+    text-align: center;
+}
+.header-profile h1, .header-profile p {
+    margin: 10px ;
+}
+.photo-profile-img {
+    width: 400px;
+    height: 300px;
+    background: #eee;
+    margin: 10px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.photo-profile-img img {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: #eee;
+    object-fit: contain;
+}
+.profile-left {
+    border: 2px solid #cac8c8;
+    width: 180px;
+    /* padding: 10px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.profile-avatar {
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+    border-radius: 50%;
+}
+.username {
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: -10px;
+}
+.links {
+    font-size: 15px;
+    margin: 15px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.link {
+    margin: 10px auto;
+    width: 170px;
+    text-align: center;
+    padding: 5px;
+}
+.link:first-child {
+    margin-top: 50px;
+}
+.link:hover {
+    color: #fff;
+    background-color: #7e7c7c;
+    cursor: pointer;
+    /* width: 171px; */
+    transtion: all 1s ease-in-out;
+}
+
+form.form-container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    align-items: flex-start;
+    justify-content: center;
+}
+input.photo-profile-input {
+    margin: -5px auto 10px auto;
+}
+input.profile-iput-info {
+    width: 90%;
+    margin: 10px auto;
+    height: 30px;
+    padding: 10px;
+    border: 2px solid #333;
+    color: var(--color1);
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+button.submit {
+    margin: 15px;
+    width: 160px;
+    height: 40px;
+    cursor: pointer;
+    border: none;
+    background: var(--color2);
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 5px;
+    border-radius: 3px;
+}
+.profile-link {
+    text-decoration: none;
+    list-style-type: none;
+}
+
