@@ -3,7 +3,7 @@ const Image = require("../models/Image");
 const User = require("../models/User");
 
 // Create a New Image Post
-filename = "";
+// filename = "";
 const createImg = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -15,12 +15,11 @@ const createImg = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    const author = user.name;
+    // const author = user.name;
     const newImg = new Image({
       title: req.body.title,
       description: req.body.description,
-      category: req.body.category,
-      photo: req.file.filename,
+      photo: req.file?.filename,
       user: req.user.id,
       name: user.name,
     });

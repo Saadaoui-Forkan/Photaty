@@ -9,7 +9,7 @@ function ProfileLeft({profile}) {
   return (
     <div className='profile-left'>
         <img src={avatar} alt="" className="profile-avatar" />
-        <p className='username'>{profile.name}</p>
+        <p className='username'>{profile?.name}</p>
         <p className='username'>{profile?.bio}</p>
         <p className='username'>{profile?.status}</p>
         <div className="links">

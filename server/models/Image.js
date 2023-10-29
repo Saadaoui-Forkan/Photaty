@@ -15,11 +15,8 @@ const ImageSchema = new Schema({
     required: true
   },
   photo: {
-    type: Object,
-    default: {
-      url: "",
-      publicId: null,
-    },
+    type: String,
+    required: true
   },
   likes: [
     {
