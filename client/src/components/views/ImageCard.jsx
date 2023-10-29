@@ -9,7 +9,7 @@ function ImageCard(props) {
   const navigate = useNavigate();
   const [error, setError] = useState('')
   const [like, setLike] = useState([])
-  const [id, setId] = useState(null)
+  // const [id, setId] = useState(null)
   const {photo, title, author, createdAt, avatar, imageId, likes} = props
   const user = JSON.parse(localStorage.getItem('user'))
   
@@ -67,7 +67,7 @@ function ImageCard(props) {
             <i className="fa-regular fa-square-plus"></i>
           </Link>
         </span>
-      </div>
+      </div> 
       <div className="menu-description">
         <img src={avatar} alt="avatar" className="avatar" />
         <div className="menu-info">

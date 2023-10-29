@@ -42,10 +42,13 @@
     object-fit: contain;
     border-radius: 50%;
 }
-.username {
+.username:first-child {
     font-size: 15px;
-    font-weight: bold;
     margin-top: -10px;
+}
+.username {
+    font-weight: bold;
+    padding: 5px;
 }
 .links {
     font-size: 15px;

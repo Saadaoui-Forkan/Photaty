@@ -1,11 +1,13 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import './profile.css'
 import HeaderProfile from './HeaderProfile'
 import axios from 'axios'
+import Alert from '../alert/Alert';
 
 function PhotoProfile() {
     const user = JSON.parse(localStorage.getItem("user"));
     const [imageSrc, setImageSrc] = useState(''); 
+    const [data, setData] = useState([])
     const [name, setName] = useState("")
     const [bio, setBio] = useState("")
     const [status, setStatus] = useState("")
@@ -23,6 +25,10 @@ function PhotoProfile() {
       }
     };
 
+    // useEffect(()=>{
+    //   handleSave()
+    // }, [])
+
     const handleSave = (e) => {
         e.preventDefault()
         const formData = new FormData()
@@ -30,7 +36,7 @@ function PhotoProfile() {
         formData.append('bio', bio)
         formData.append('status', status)
         if (imageSrc) {
-            formData.append('image', imageSrc)
+          formData.append('image', imageSrc)
         }
       axios
       .post("/api/users/profile", formData, {
@@ -40,9 +46,10 @@ function PhotoProfile() {
         },
       })
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data.data)
+        // setData(res.data)
       })
-      .catch((error) => console.log(error.response.data.msg));
+      .catch((error) => setError(error.response.data.msg));
     };
 
   return (
@@ -54,7 +61,12 @@ function PhotoProfile() {
       <div className="photo-profile-img">
         <img alt="" src={imageSrc}/>
       </div>
-      <form encType="multipart/form-data" className='form-container' onSubmit={handleSave}>
+      <form 
+        encType="multipart/form-data" 
+        className='form-container' 
+        onSubmit={handleSave}
+      >
+        {error && <Alert error={error}/>}
         <input
           className="photo-profile-input"
           type="file"
