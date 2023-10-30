@@ -7,7 +7,8 @@ import moment from 'moment'
 
 function ImageDetails() {
   let { imgId } = useParams()
-  // console.log(imgId)
+  const [photos, setPhotos] = useState([]);
+  const user = JSON.parse(localStorage.getItem("user"));
   const [imageId, setImageId] = useState([]);
   /**
    * Get all image by id
@@ -25,6 +26,26 @@ function ImageDetails() {
       console.log(error.message)
     }
   };
+
+  // Get User Images
+  useEffect(() => {  
+    myImages();
+  }, []);
+const myImages = async () => {
+  await axios
+    .get(`/api/images/user_images`, {
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": user?.data.token,
+      },
+    })
+    .then((res) => {
+      setPhotos(res?.data);
+    })
+    .catch((err) => console.log(err.response.data.msg));
+};
+// Delete Image
+console.log(photos)
   return (
     <div className="image-details">
         <Link to='/' className='back'>
@@ -37,6 +58,12 @@ function ImageDetails() {
           alt={imageId.title}
           className="image"
         />
+        <div className="d_delete d_change" >
+            <i className="fa-solid fa-trash"></i>
+          </div>
+          <div className="d_edit d_change">
+            <i className="fa-solid fa-pen-to-square"></i>
+          </div>
       </div>
 
       <div className="image-info-1">

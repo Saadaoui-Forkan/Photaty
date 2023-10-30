@@ -1,6 +1,7 @@
 const { validationResult } = require("express-validator");
 const Image = require("../models/Image");
 const User = require("../models/User");
+const mongoose = require('mongoose');
 
 // Create a New Image Post
 const createImg = async (req, res) => {
@@ -146,9 +147,12 @@ const removeImg = async (req, res) => {
     }
     await post.remove;
     res.json({ msg: "Post removed" });
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).send("Server Error");
+  } catch (err) {
+    console.error(err.message);
+    if (err.kind === "ObjectId") {
+      return res.status(404).json({ msg: "Post Not Found" });
+    }
+    res.status(500).send("Server error");
   }
 };
 

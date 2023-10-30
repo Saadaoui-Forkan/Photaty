@@ -19,7 +19,7 @@ function ImageCard(props) {
     imageId,
     likes,
     edit_remove,
-    photos,
+    handleRemove,
     setPhotos
   } = props;
   const user = JSON.parse(localStorage.getItem('user'))
@@ -71,32 +71,13 @@ function ImageCard(props) {
   .catch((err) => setError(err.response.data.msg)); 
 };
 
-/**
- * Remove An Image
-*/
-useEffect(()=>{
-  handleRemove()
-}, [])
 
-const handleRemove = async () => {
-  await axios
-    .delete(`/api/images/user_images/${imageId}`, {
-      headers: {
-        "Content-Type": "application/json",
-        "x-auth-token": user.data.token,
-      },
-    })
-    .then(() => {
-      setPhotos(photos.filter(p=>p._id !== imageId))
-    })
-    .catch((err) => setError(err.response.data.msg));
-};
 
   return (
     <div className="menu">
       {edit_remove ? (
         <>
-          <div className="delete change" onClick={handleRemove}>
+          <div className="delete change" onClick={()=>handleRemove(imageId)}>
             <i className="fa-solid fa-trash"></i>
           </div>
           <div className="edit change">

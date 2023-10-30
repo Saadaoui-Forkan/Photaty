@@ -143,7 +143,6 @@ i.fa-solid.fa-magnifying-glass {
 .change {
     position: absolute;
     bottom: 3px;
-    
     cursor: pointer;
     background-color: #eee;
     width: 30px;
