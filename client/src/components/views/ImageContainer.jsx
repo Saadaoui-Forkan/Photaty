@@ -4,7 +4,7 @@ import ImageCard from './ImageCard'
 import Header from './Header'
 
 function ImageContainer({images}) {
-  console.log(images)
+  // console.log(images)
   return (
     <div className="container">
       <Header/>

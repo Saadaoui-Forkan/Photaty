@@ -20,6 +20,7 @@
     width: 300px;
     margin: 1rem;
     margin-top: 110px;
+    position: relative;
 }
 .menu-img {
     position: relative;
@@ -137,4 +138,24 @@
 i.fa-solid.fa-magnifying-glass {
     line-height: 35px;
     margin-left: 15px
+}
+
+.change {
+    position: absolute;
+    bottom: 3px;
+    
+    cursor: pointer;
+    background-color: #eee;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: auto;
+    line-height: 30px;
+    color: var(--color4)
+}
+.delete {
+    left: 60px;
+}
+.edit {
+    right: 60px;
 }

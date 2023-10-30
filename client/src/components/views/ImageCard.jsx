@@ -9,8 +9,19 @@ function ImageCard(props) {
   const navigate = useNavigate();
   const [error, setError] = useState('')
   const [like, setLike] = useState([])
-  // const [id, setId] = useState(null)
-  const {photo, title, author, createdAt, avatar, imageId, likes} = props
+  const [remove, setRemove] = useState(null)
+  const {
+    photo,
+    title,
+    author,
+    createdAt,
+    avatar,
+    imageId,
+    likes,
+    edit_remove,
+    photos,
+    setPhotos
+  } = props;
   const user = JSON.parse(localStorage.getItem('user'))
   
   /**
@@ -42,6 +53,11 @@ function ImageCard(props) {
    * Unlike An Image
   */
  const unLikeImage = async() => {
+  if (!user) {
+    navigate("/login");
+    return;
+  };
+
   await axios
   .put(`/api/images/unlike/${imageId}`, like, {
     headers: {
@@ -54,8 +70,42 @@ function ImageCard(props) {
   })
   .catch((err) => setError(err.response.data.msg)); 
 };
+
+/**
+ * Remove An Image
+*/
+useEffect(()=>{
+  handleRemove()
+}, [])
+
+const handleRemove = async () => {
+  await axios
+    .delete(`/api/images/user_images/${imageId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": user.data.token,
+      },
+    })
+    .then(() => {
+      setPhotos(photos.filter(p=>p._id !== imageId))
+    })
+    .catch((err) => setError(err.response.data.msg));
+};
+
   return (
     <div className="menu">
+      {edit_remove ? (
+        <>
+          <div className="delete change" onClick={handleRemove}>
+            <i className="fa-solid fa-trash"></i>
+          </div>
+          <div className="edit change">
+            <i className="fa-solid fa-pen-to-square"></i>
+          </div>
+        </>
+      ) : (
+        ""
+      )}
       <div className="menu-img">
         <img
           src={require(`../../assets/images/${photo}`)}
@@ -67,7 +117,7 @@ function ImageCard(props) {
             <i className="fa-regular fa-square-plus"></i>
           </Link>
         </span>
-      </div> 
+      </div>
       <div className="menu-description">
         <img src={avatar} alt="avatar" className="avatar" />
         <div className="menu-info">
@@ -80,12 +130,12 @@ function ImageCard(props) {
       </div>
 
       <div className="menu-like">
-        {error  && <Alert error={error}/>}
-        <div className="like" onClick={()=>likeImage()}>
+        {error && <Alert error={error} />}
+        <div className="like" onClick={() => likeImage()}>
           <i className="fa-regular fa-thumbs-up"></i>
-          {likes.length === 0 ? '' : likes.length}
+          {likes.length === 0 ? "" : likes.length}
         </div>
-        <div className="dislike" onClick={()=>unLikeImage()}>
+        <div className="dislike" onClick={() => unLikeImage()}>
           <i className="fa-regular fa-thumbs-down"></i>
         </div>
       </div>

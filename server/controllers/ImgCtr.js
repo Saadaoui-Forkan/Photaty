@@ -3,7 +3,6 @@ const Image = require("../models/Image");
 const User = require("../models/User");
 
 // Create a New Image Post
-// filename = "";
 const createImg = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -47,10 +46,8 @@ const allImages = async (req, res) => {
 // Get Image By Id
 const imageId = async (req, res) => {
   try {
-    const post = await Image.findById(req.params.img_id).populate(
-      "user",
-      "name avatar id"
-    );
+    const post = await Image.findById(req.params.img_id)
+      .populate("user", "name avatar id" );
     res.json(post);
   } catch (error) {
     console.log(error.message);
@@ -61,8 +58,10 @@ const imageId = async (req, res) => {
 // Get User Images
 const userImages = async (req, res) => {
   try {
-    const images = await Image.find({ user: req.user.id }).sort({ date: -1 });
-    console.log(images);
+    const images = await Image.find({ user: req.user.id })
+      .sort({ date: -1 })
+      .populate("user", "name avatar id");
+    
     res.json(images);
   } catch (error) {
     console.error(error.message);
@@ -132,19 +131,21 @@ const unLikeImg = async (req, res) => {
   }
 };
 
-// Comment An Image
-const commentImg = async (req, res) => {
+// Remove An Image
+const removeImg = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id);
-    const post = await Image.findById(req.params.id);
-    const newComment = {
-      text: req.body.text,
-      name: user.name,
-      user: req.user.id,
-    };
-    post.comments.unshift(newComment);
-    await post.save();
-    res.json(post.comments);
+    // const user = await User.findById(req.user.id);
+    const post = await Image.findById(req.params.photoId);
+    if (!post) {
+      return res.status(404).json({ msg: "Post Not Found" });
+    }
+
+    // Check User
+    if (post.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: "User not authorized" });
+    }
+    await post.remove;
+    res.json({ msg: "Post removed" });
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Server Error");
@@ -159,5 +160,5 @@ module.exports = {
   userImageId,
   likeImg,
   unLikeImg,
-  commentImg,
+  removeImg
 };

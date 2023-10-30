@@ -1,9 +1,18 @@
-const { createImg, allImages, imageId, userImages, userImageId, likeImg, unLikeImg, commentImg } = require('../controllers/ImgCtr')
-const protect = require('../middleware/AuthMiddleware')
-const { check } = require('express-validator')
-const router = require('express').Router()
-const multer = require('multer')
-const path = require('path')
+const {
+  createImg,
+  allImages,
+  imageId,
+  userImages,
+  userImageId,
+  likeImg,
+  unLikeImg,
+  removeImg,
+} = require("../controllers/ImgCtr");
+const protect = require("../middleware/AuthMiddleware");
+const { check } = require("express-validator");
+const router = require("express").Router();
+const multer = require("multer");
+const path = require("path");
 
 // @route     api/images/new_image
 // @method    Post
@@ -35,42 +44,42 @@ router.post(
 // @method  GET
 // @desc    Get all images
 // @access  Public
-router.get('/all', allImages)
+router.get("/all", allImages);
 
 // @route   api/images/all/:img_id
 // @method  GET
 // @desc    Get Image By Id
 // @access  Public
-router.get('/all/:img_id', imageId)
+router.get("/all/:img_id", imageId);
 
 // @route   api/images/user_images
 // @method  GET
 // @desc    Get All User Images
 // @access  Private
-router.get('/user_images', protect, userImages)
+router.get("/user_images", protect, userImages);
 
 // @route   api/images/user_images/:id
 // @method  GET
 // @desc    Get An User Image
 // @access  Private
-router.get('/user_images/:id', protect, userImageId)
+router.get("/user_images/:id", protect, userImageId);
 
 // @route   api/images/like/:id
 // @method  PUT
 // @desc    Like An Image
 // @access  Private
-router.put('/like/:id', protect, likeImg)
+router.put("/like/:id", protect, likeImg);
 
 // @route   api/images/unlike/:id
 // @method  PUT
 // @desc    Like An Image
 // @access  Private
-router.put('/unlike/:id', protect, unLikeImg)
+router.put("/unlike/:id", protect, unLikeImg);
 
-// @route   api/images/comment/:id
-// @method  POST
-// @desc    Comment An Image
+// @route   api/images/user_images/:photoId
+// @method  DELETE
+// @desc    Delete An Image
 // @access  Private
-router.post('/comment/:id', protect, commentImg)
+router.delete("/user_images/:photoId", protect, removeImg);
 
-module.exports = router
+module.exports = router;
