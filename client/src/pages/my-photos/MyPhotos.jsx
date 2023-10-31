@@ -25,27 +25,24 @@ function MyPhotos() {
       })
       .catch((err) => console.log(err.response.data.msg));
   };
-console.log(photos)
-  /**
- * Remove An Image
-*/
-// useEffect(()=>{
-//   handleRemove()
-// }, [])
 
-const handleRemove = async (id) => {
-  await axios
-    .delete(`/api/images/user_images/${id}` , {
-      headers: {
-        "Content-Type": "application/json",
-        "x-auth-token": user?.data.token,
-      },
-    })
-    .then(() => {
-      setPhotos(photos.filter(p=>p._id.toString() !== id.toString()))
-    })
-    .catch((err) => console.log(err));
-};
+  /**
+   * Remove An Image
+   */
+
+  const handleRemove = async (id) => {
+    await axios
+      .delete(`/api/images/user_images/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": user?.data.token,
+        },
+      })
+      .then(() => {
+        setPhotos(photos.filter((p) => p._id.toString() !== id.toString()));
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className="container">

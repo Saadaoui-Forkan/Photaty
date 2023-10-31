@@ -1,7 +1,6 @@
 const { validationResult } = require("express-validator");
 const Image = require("../models/Image");
 const User = require("../models/User");
-const mongoose = require('mongoose');
 
 // Create a New Image Post
 const createImg = async (req, res) => {
@@ -135,7 +134,6 @@ const unLikeImg = async (req, res) => {
 // Remove An Image
 const removeImg = async (req, res) => {
   try {
-    // const user = await User.findById(req.user.id);
     const post = await Image.findById(req.params.photoId);
     if (!post) {
       return res.status(404).json({ msg: "Post Not Found" });
@@ -156,6 +154,28 @@ const removeImg = async (req, res) => {
   }
 };
 
+// Edit Image
+const editImg = async (req, res) => {
+  try {
+    const post = await Image.findById(req.params.photoId);
+
+    if (!post) {
+      return res.status(404).json({ message: "post not found" });
+    }
+
+    const { title, description, photo } = req.body;
+    post.title = title;
+    post.description = description;
+    post.photo = photo ? photo.filename : post.photo;
+    // console.log(photo)
+    res.json({ msg: "Post Updated" });
+    await post.save();
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+};
+
 module.exports = {
   createImg,
   allImages,
@@ -164,5 +184,6 @@ module.exports = {
   userImageId,
   likeImg,
   unLikeImg,
-  removeImg
+  removeImg,
+  editImg
 };

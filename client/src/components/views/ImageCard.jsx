@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import './views.css'
 import { Link, useNavigate } from 'react-router-dom';
 import moment from 'moment'
@@ -9,7 +9,6 @@ function ImageCard(props) {
   const navigate = useNavigate();
   const [error, setError] = useState('')
   const [like, setLike] = useState([])
-  const [remove, setRemove] = useState(null)
   const {
     photo,
     title,
@@ -20,16 +19,12 @@ function ImageCard(props) {
     likes,
     edit_remove,
     handleRemove,
-    setPhotos
   } = props;
   const user = JSON.parse(localStorage.getItem('user'))
   
   /**
    * Like An Image
   */
-  // useEffect(() => {
-  //   likeImage();
-  // }, [likes]);
   const likeImage = async () => {
     if (!user) {
       navigate("/login");
@@ -81,7 +76,9 @@ function ImageCard(props) {
             <i className="fa-solid fa-trash"></i>
           </div>
           <div className="edit change">
-            <i className="fa-solid fa-pen-to-square"></i>
+            <Link to='/edit-photo'>
+              <i className="fa-solid fa-pen-to-square"></i>
+            </Link>
           </div>
         </>
       ) : (
