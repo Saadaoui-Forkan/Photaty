@@ -66,8 +66,6 @@ function ImageCard(props) {
   .catch((err) => setError(err.response.data.msg)); 
 };
 
-
-
   return (
     <div className="menu">
       {edit_remove ? (
@@ -76,7 +74,7 @@ function ImageCard(props) {
             <i className="fa-solid fa-trash"></i>
           </div>
           <div className="edit change">
-            <Link to='/edit-photo'>
+            <Link to={`/edit-photo/${imageId}`}>
               <i className="fa-solid fa-pen-to-square"></i>
             </Link>
           </div>

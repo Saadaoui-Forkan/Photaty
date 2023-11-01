@@ -17,7 +17,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/share-image" element={<ShareImage />} />
         <Route path="/my-photos" element={<MyPhotos />} />
-        <Route path="/edit-photo" element={<EditImage />} />
+        <Route path="/edit-photo/:photo" element={<EditImage />} />
         <Route path="/:imgId" element={<ImageDetails />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

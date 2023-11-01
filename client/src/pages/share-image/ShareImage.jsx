@@ -21,9 +21,9 @@ function ShareImage() {
   /**
    * Post Image
    */
-  useEffect(()=>{
-    postImage()
-  }, [])
+  // useEffect(()=>{
+  //   postImage()
+  // }, [])
   const postImage = (e) => {
     const formData = new FormData();
     formData.append("title", imageTitle);
@@ -60,6 +60,7 @@ function ShareImage() {
             setImageTitle={setImageTitle}
             setImageDescription={setImageDescription}
             error={error}
+            show={true}
         />
     </div>
   )

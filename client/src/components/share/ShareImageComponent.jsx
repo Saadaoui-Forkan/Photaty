@@ -11,7 +11,9 @@ function ShareImageComponent({
   imageDescription,
   setImageDescription,
   error,
+  show
 }) {
+  
   return (
     <div className="share-container">
       <div className="share-img">
@@ -24,13 +26,13 @@ function ShareImageComponent({
       >
         {error && <Alert error={error} />}
         <div className="image-upload">
-          <input
+          {show && <input
             name="photo"
             type="file"
             id="formId"
             accept="image/*"
             onChange={onInputChange}
-          />
+          />}
         </div>
         <input
           type="text"
