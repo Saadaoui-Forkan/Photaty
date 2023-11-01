@@ -16,6 +16,12 @@ function ProfileLeft({profile}) {
             <Link to='/profile'className='profile-link'>
              <h3 className='link'>Profil</h3>
             </Link>
+            <Link to="/my-photos" className='profile-link'>
+             <h3 className='link'>My Photos</h3>
+            </Link>
+            <Link to="share-image" className='profile-link'>
+             <h3 className='link'>Share Image</h3>
+            </Link>
             <Link to='/'className='profile-link'>
               <h3 className='link'>Home</h3>
             </Link>

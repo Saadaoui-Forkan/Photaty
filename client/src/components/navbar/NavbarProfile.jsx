@@ -8,15 +8,15 @@ function NavbarProfile() {
       <Link className="a" to="/">
         <li>Home</li>
       </Link>
-      <Link className="a" to="/my-photos">
+      {/* <Link className="a" to="/my-photos">
         <li>My Photos</li>
-      </Link>
+      </Link> */}
       <Link className="a" to="/profile">
         <li>Profile</li>
       </Link>
-      <Link className="a" to="/share-image">
+      {/* <Link className="a" to="/share-image">
         <li>Share Image</li>
-      </Link>
+      </Link> */}
       <Link className="a" to="/Login">
         <li>Logout</li>
       </Link>

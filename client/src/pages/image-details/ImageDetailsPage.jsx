@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './imageDetails.css'
-import avatar from '../../assets/photaty/avatar-profile.png'
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../../components/navbar/Navbar';
 import PhotoDetails from '../../components/image-details/PhotoDetails';
@@ -30,7 +29,6 @@ function ImageDetails() {
     <>
       <Navbar />
       <PhotoDetails 
-        imgId={imgId}
         imageId={imageId}
       />
     </>

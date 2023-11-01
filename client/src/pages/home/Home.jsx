@@ -20,11 +20,7 @@ function Home() {
       console.error(error);
     }
   };
-
   
-
-  
-
   return (
     <>
       <Navbar />
