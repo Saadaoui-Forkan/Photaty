@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, {  useEffect, useState } from "react";
 import './views.css'
 import { Link, useNavigate } from 'react-router-dom';
 import moment from 'moment'
@@ -25,46 +25,49 @@ function ImageCard(props) {
   /**
    * Like An Image
   */
-  const likeImage = async () => {
-    if (!user) {
-      navigate("/login");
-      return;
-    }
-    
-    await axios
-      .put(`/api/images/like/${imageId}`, like, {
-        headers: {
-          "Content-Type": "application/json",
-          "x-auth-token": user.data.token,
-        },
-      })
-      .then((res) => {
-        setLike(res.data)
-      })
-      .catch((err) => setError(err.response.data.msg)); 
-  };
+//  useEffect(()=>{
+//   likeImage()
+//  },[id])
+const likeImage = async (id) => {
+  if (!user) {
+    navigate("/login");
+    return;
+  }
+  
+  await axios
+    .put(`/api/images/like/${id}`, like, {
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": user.data.token,
+      },
+    })
+    .then((res) => {
+      setLike(res.data)
+    })
+    .catch((err) => setError(err.response.data.msg)); 
+};
 
   /**
    * Unlike An Image
   */
- const unLikeImage = async() => {
-  if (!user) {
-    navigate("/login");
-    return;
+  const unLikeImage = async(id) => {
+    if (!user) {
+      navigate("/login");
+      return;
+    };
+  
+    await axios
+    .put(`/api/images/unlike/${id}`, like, {
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": user.data.token,
+      },
+    })
+    .then((res) => {
+      setLike(res.data)
+    })
+    .catch((err) => setError(err.response.data.msg)); 
   };
-
-  await axios
-  .put(`/api/images/unlike/${imageId}`, like, {
-    headers: {
-      "Content-Type": "application/json",
-      "x-auth-token": user.data.token,
-    },
-  })
-  .then((res) => {
-    setLike(res.data)
-  })
-  .catch((err) => setError(err.response.data.msg)); 
-};
 
   return (
     <div className="menu">
@@ -107,11 +110,11 @@ function ImageCard(props) {
 
       <div className="menu-like">
         {error && <Alert error={error} />}
-        <div className="like" onClick={() => likeImage()}>
+        <div className="like" onClick={() => likeImage(imageId)}>
           <i className="fa-regular fa-thumbs-up"></i>
           {likes.length === 0 ? "" : likes.length}
         </div>
-        <div className="dislike" onClick={() => unLikeImage()}>
+        <div className="dislike" onClick={() => unLikeImage(imageId)}>
           <i className="fa-regular fa-thumbs-down"></i>
         </div>
       </div>

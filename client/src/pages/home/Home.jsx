@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ImageContainer from "../../components/views/ImageContainer";
+import ImageCard from '../../components/views/ImageCard'
 import Navbar from "../../components/navbar/Navbar";
 import axios from "axios";
 
@@ -17,18 +17,39 @@ function Home() {
       const res = await axios.get(`/api/images/all`);
       setImages(res?.data);
     } catch (error) {
-      console.log(error.message);
+      console.error(error);
     }
   };
+
+  
+
+  
 
   return (
     <>
       <Navbar />
-      <ImageContainer 
-        images={images} 
-      />
+      
+      <div className="container">
+        <div className="menu-container">
+          {
+            images.map((img, index)=>(
+              <ImageCard 
+                key={index}
+                photo={img.photo}
+                title={img.title}
+                author={img.user.name}
+                createdAt={img.createdAt}
+                avatar={img.user.avatar.url}
+                imageId={img._id}
+                likes={img.likes}
+              />
+            ))
+          }
+        </div>
+      </div>
+     
     </>
-  );
+  )
 }
 
 export default Home;

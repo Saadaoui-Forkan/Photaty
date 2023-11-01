@@ -3,7 +3,7 @@ import Login from "./pages/connection/Login";
 import Register from "./pages/connection/Register";
 import NotFound from "./pages/not-found/NotFound";
 import Home from "./pages/home/Home";
-import ImageDetails from "./pages/image-details/ImageDetails";
+import ImageDetailsPage from "./pages/image-details/ImageDetailsPage";
 import Profile from './pages/profile/Profile'
 import ShareImage from "./pages/share-image/ShareImage";
 import MyPhotos from "./pages/my-photos/MyPhotos";
@@ -18,7 +18,7 @@ function App() {
         <Route path="/share-image" element={<ShareImage />} />
         <Route path="/my-photos" element={<MyPhotos />} />
         <Route path="/edit-photo/:photo" element={<EditImage />} />
-        <Route path="/:imgId" element={<ImageDetails />} />
+        <Route path="/:imgId" element={<ImageDetailsPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<NotFound />} />
