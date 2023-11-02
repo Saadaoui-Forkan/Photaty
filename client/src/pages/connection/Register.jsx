@@ -42,7 +42,7 @@ function Register() {
   }
   return (
     <div className="register">
-      {error && <Alert error={error}/>}
+      {error && <Alert error={error} setError={setError}/>}
       <div className="loginWrapper">
         <div className="loginLeft">
           <img className="loginLogo" src={logo} alt="logo" />
