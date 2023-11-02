@@ -14,7 +14,9 @@
 .share-img img {
     width: 90%;
     height: 90%;
-    object-fit: cover;
+    object-fit: contain;
+    padding: 10px;
+    border: 2px dashed var(--color4)
 }
 .share-form-container {
     display: flex;
@@ -42,4 +44,27 @@
 }
 .share-description {
     height: 200px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .share-img {
+        width: 370px;
+        height: 350px;
+    }
+    .share-form-container {
+        margin: 1px auto 10px;
+    }
+    .share-title, .share-description {
+        margin: 18px auto 15px;
+        width: 90%;
+        font-size: 15px;
+        padding: 9px;
+    }
+}
+@media (min-width: 260px) and (max-width: 400px) {
+    .share-img {
+        width: 90%;
+        height: auto;
+    }
 }

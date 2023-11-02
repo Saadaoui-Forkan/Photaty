@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PhotoProfile from '../../components/profile/PhotoProfile';
 import axios from 'axios';
+import Navbar from '../../components/navbar/Navbar';
 
 function Profile() {
   const user = JSON.parse(localStorage.getItem('user'))
@@ -22,7 +23,8 @@ function Profile() {
   }
   return (
     <div className='profile'>
-        <PhotoProfile/>
+      <Navbar/>
+      <PhotoProfile/>
     </div>
   );
 }

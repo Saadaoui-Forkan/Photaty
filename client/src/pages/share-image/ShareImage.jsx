@@ -3,14 +3,18 @@ import HeaderProfile from '../../components/profile/HeaderProfile'
 import Navbar from '../../components/navbar/Navbar'
 import ShareImageComponent from '../../components/share/ShareImageComponent'
 import axios from "axios";
+import logo from '../../assets/photaty/logo.png'
+import { useNavigate } from 'react-router-dom';
 
 function ShareImage() {
+  const [data, setData] = useState([])
   const [error, setError] = useState("")
   const [avatar, setAvatar] = useState(null)
-  const [image, setImage] = useState(null)
+  const [image, setImage] = useState(logo)
   const [imageTitle, setImageTitle] = useState("");
   const [imageDescription, setImageDescription] = useState("");
   const user = JSON.parse(localStorage.getItem("user"));
+  const navigate = useNavigate()
 
   const onInputChange = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -21,10 +25,8 @@ function ShareImage() {
   /**
    * Post Image
    */
-  // useEffect(()=>{
-  //   postImage()
-  // }, [])
   const postImage = (e) => {
+    e.preventDefault()
     const formData = new FormData();
     formData.append("title", imageTitle);
     formData.append("description", imageDescription);
@@ -39,7 +41,8 @@ function ShareImage() {
           },
         })
         .then((res) => {
-          return res?.data
+          setData(res.data) 
+          navigate('/')
         })
         .catch((error) => setError(error.response.data.errors[0].msg));
   };

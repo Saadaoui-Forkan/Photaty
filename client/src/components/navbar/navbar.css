@@ -4,6 +4,9 @@
 
 .logo {
   width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  padding: 30px;
 }
 
 .nav-btn {
@@ -18,6 +21,7 @@
   top: 30px;
   left: 10px;
   z-index: 60;
+  background: transparent;
 }
 
 .nav {
@@ -36,7 +40,9 @@
 
 .nav-black {
   background-color: var(--color1);
-  width: 220px;
+  width: 50%;
+  max-width: 300px;
+  min-width: 250px;
   transition-delay: 0.4s;
 }
 
@@ -57,7 +63,6 @@
 .nav-white {
   background-color: #fff;
   width: 95%;
-  padding: 40px;
   position: relative;
   transition-delay: 0s;
 }
@@ -71,15 +76,16 @@
   top: 40px;
   right: 30px;
   z-index:60;
+  background: transparent;
 }
 
 .close-btn i, .open-btn i {
-  color: var(--color5)
+  color: var(--color1)
 }
 
 .list {
   list-style-type: none;
-  padding: 0;
+  padding: 10px;
 }
 
 .list li {
@@ -92,6 +98,7 @@
   text-decoration: none;
   font-weight: bold;
   font-size: 15px;
+  cursor: pointer;
 }
 
 .a:hover {
@@ -104,8 +111,8 @@
 }
 .avatar-edit {
   position: absolute;
-  bottom: 14px;
-  right: 14px;
+  bottom: 22px;
+  right: -20px;
   color: var(--color1);
   background: transparent;
   border: none;
@@ -114,4 +121,15 @@
 }
 button.avatar-edit:disabled {
   cursor: not-allowed;
+}
+.user-description {
+  margin: 10px auto;
+  border-bottom: 2px solid #c5bfbf;
+  padding-bottom: 5px;
+}
+.user-info {
+  margin: 8px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  font-weight: bold;
 }

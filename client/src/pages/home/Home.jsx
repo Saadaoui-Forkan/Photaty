@@ -20,7 +20,7 @@ function Home() {
       console.error(error);
     }
   };
-  
+  // console.log(images)
   return (
     <>
       <Navbar />
@@ -35,7 +35,7 @@ function Home() {
                 title={img.title}
                 author={img.user.name}
                 createdAt={img.createdAt}
-                avatar={img.user.avatar?.url}
+                avatar={img.user.avatar}
                 imageId={img._id}
                 likes={img.likes}
               />

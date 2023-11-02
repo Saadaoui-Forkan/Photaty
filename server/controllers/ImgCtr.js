@@ -143,13 +143,10 @@ const removeImg = async (req, res) => {
     if (post.user.toString() !== req.user.id) {
       return res.status(401).json({ msg: "User not authorized" });
     }
-    await post.remove;
+    await post.deleteOne()
     res.json({ msg: "Post removed" });
   } catch (err) {
-    console.error(err.message);
-    if (err.kind === "ObjectId") {
-      return res.status(404).json({ msg: "Post Not Found" });
-    }
+    return res.status(404).json({ msg: "Post Not Found" });
     res.status(500).send("Server error");
   }
 };

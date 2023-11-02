@@ -1,25 +1,30 @@
 import React from 'react'
 import './navbar.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function NavbarProfile() {
+  const navigate = useNavigate();
+  const logout = () => {
+    localStorage.removeItem("user");
+    navigate('/')
+  }
   return (
     <ul className="list">
       <Link className="a" to="/">
         <li>Home</li>
       </Link>
-      {/* <Link className="a" to="/my-photos">
+      <Link className="a" to="/my-photos">
         <li>My Photos</li>
-      </Link> */}
+      </Link>
       <Link className="a" to="/profile">
-        <li>Profile</li>
+        <li>Edit Profile</li>
       </Link>
-      {/* <Link className="a" to="/share-image">
+      <Link className="a" to="/share-image">
         <li>Share Image</li>
-      </Link> */}
-      <Link className="a" to="/Login">
-        <li>Logout</li>
       </Link>
+      <div className="a" onClick={logout}>
+        <li >Logout</li>
+      </div>
     </ul>
   )
 }

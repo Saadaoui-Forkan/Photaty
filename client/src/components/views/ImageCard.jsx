@@ -1,9 +1,10 @@
-import React, {  useEffect, useState } from "react";
+import React, { useState } from "react";
 import './views.css'
 import { Link, useNavigate } from 'react-router-dom';
 import moment from 'moment'
 import axios from "axios";
 import Alert from "../alert/Alert";
+import defaultUser from "../../assets/photaty/avatar-profile.png"
 
 function ImageCard(props) {
   const navigate = useNavigate();
@@ -21,6 +22,8 @@ function ImageCard(props) {
     handleRemove,
   } = props;
   const user = JSON.parse(localStorage.getItem('user'))
+  const imgSrc = photo ? require(`../../assets/images/${photo}`) : ""
+  const avatarSrc = avatar ? require(`../../assets/profile/${avatar}`) : defaultUser
   
   /**
    * Like An Image
@@ -87,7 +90,7 @@ const likeImage = async (id) => {
       )}
       <div className="menu-img">
         <img
-          src={require(`../../assets/images/${photo}`)}
+          src={imgSrc}
           alt={`${title}`}
           className="img"
         />
@@ -98,7 +101,7 @@ const likeImage = async (id) => {
         </span>
       </div>
       <div className="menu-description">
-        <img src={avatar} alt="avatar" className="avatar" />
+        <img src={avatarSrc} alt="avatar" className="avatar" />
         <div className="menu-info">
           <h3 className="title">{title}</h3>
           <p className="date">

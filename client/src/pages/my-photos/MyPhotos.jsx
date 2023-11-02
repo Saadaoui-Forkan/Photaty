@@ -3,6 +3,7 @@ import Navbar from '../../components/navbar/Navbar'
 import axios from 'axios'
 import ImageCard from '../../components/views/ImageCard'
 import '../../components/views/views.css'
+import { Link } from 'react-router-dom'
 
 function MyPhotos() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -21,7 +22,7 @@ function MyPhotos() {
         },
       })
       .then((res) => {
-        setPhotos(res?.data);
+        setPhotos(res.data);
       })
       .catch((err) => console.log(err.response.data.msg));
   };
@@ -29,7 +30,6 @@ function MyPhotos() {
   /**
    * Remove An Image
    */
-
   const handleRemove = async (id) => {
     await axios
       .delete(`/api/images/user_images/${id}`, {
@@ -41,28 +41,35 @@ function MyPhotos() {
       .then(() => {
         setPhotos(photos.filter((p) => p._id.toString() !== id.toString()));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   };
-
   return (
     <div className="container">
       <Navbar />
       <div className="menu-container">
-        {photos.map((photo, index) => (
-          <ImageCard
-            key={index}
-            photo={photo.photo}
-            title={photo.title}
-            author={photo.user.name}
-            createdAt={photo.createdAt}
-            avatar={photo.user.avatar?.url}
-            imageId={photo._id}
-            likes={photo.likes}
-            edit_remove={true}
-            handleRemove={handleRemove}
-            setPhotos={setPhotos}
-          />
-        ))}
+        {photos.length == 0 ? (
+          <div className="empty">
+            <Link className="empty-link" to="/share-image">
+              Share with us the best pictures.
+            </Link>
+          </div>
+        ) : (
+          photos.map((photo, index) => (
+            <ImageCard
+              key={index}
+              photo={photo.photo}
+              title={photo.title}
+              author={photo.user.name}
+              createdAt={photo.createdAt}
+              avatar={photo.user.avatar}
+              imageId={photo._id}
+              likes={photo.likes}
+              edit_remove={true}
+              handleRemove={handleRemove}
+              setPhotos={setPhotos}
+            />
+          ))
+        )}
       </div>
     </div>
   );
