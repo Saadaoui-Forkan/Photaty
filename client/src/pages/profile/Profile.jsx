@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import Navbar from '../../components/navbar/Navbar';
-import ProfileLeft from '../../components/profile/ProfileLeft';
 import PhotoProfile from '../../components/profile/PhotoProfile';
 import axios from 'axios';
 
@@ -24,7 +22,6 @@ function Profile() {
   }
   return (
     <div className='profile'>
-        <ProfileLeft profile={profile}/>
         <PhotoProfile/>
     </div>
   );

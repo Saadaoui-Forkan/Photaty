@@ -3,10 +3,12 @@ import './profile.css'
 import HeaderProfile from './HeaderProfile'
 import axios from 'axios'
 import Alert from '../alert/Alert';
+import avatar from '../../assets/photaty/avatar-profile.png'
 
 function PhotoProfile() {
     const user = JSON.parse(localStorage.getItem("user"));
-    const [imageSrc, setImageSrc] = useState(''); 
+    const [profileAvatar, setProfileAvatar] = useState(null)
+    const [profileImage, setProfileImage] = useState(avatar)
     const [data, setData] = useState([])
     const [name, setName] = useState("")
     const [bio, setBio] = useState("")
@@ -14,20 +16,11 @@ function PhotoProfile() {
     const [error, setError] = useState("")
 
     const handleFileChange = (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          const imageUrl = event.target.result;
-          setImageSrc(imageUrl);
-        }
-        reader.readAsDataURL(file);
+      if (e.target.files && e.target.files[0]) {
+        setProfileImage(URL.createObjectURL(e.target.files[0]));
+        setProfileAvatar(e.target.files[0]);
       }
     };
-
-    // useEffect(()=>{
-    //   handleSave()
-    // }, [])
 
     const handleSave = (e) => {
         e.preventDefault()
@@ -35,8 +28,8 @@ function PhotoProfile() {
         formData.append('name', name)
         formData.append('bio', bio)
         formData.append('status', status)
-        if (imageSrc) {
-          formData.append('image', imageSrc)
+        if (profileImage) {
+          formData.append('avatar', profileAvatar, profileAvatar.name)
         }
       axios
       .post("/api/users/profile", formData, {
@@ -46,8 +39,7 @@ function PhotoProfile() {
         },
       })
       .then((res) => {
-        console.log(res.data.data)
-        // setData(res.data)
+        setData(res.data)
       })
       .catch((error) => setError(error.response.data.msg));
     };
@@ -59,7 +51,7 @@ function PhotoProfile() {
         paragraphe="Add information about yourself."
       />
       <div className="photo-profile-img">
-        <img alt="" src={imageSrc}/>
+        <img alt="" src={profileImage}/>
       </div>
       <form 
         encType="multipart/form-data" 
@@ -70,18 +62,18 @@ function PhotoProfile() {
         <input
           className="photo-profile-input"
           type="file"
-          name="image"
+          name="avatar"
           accept="image/*"
           onChange={handleFileChange}
         />
         <input 
           type="text" 
           className="profile-iput-info" 
-          placeholder="name" 
-          required
+          placeholder="name"
           value={name}
           name="name"
           onChange={(e)=> setName(e.target.value)}
+          required
         />
 
         <input 

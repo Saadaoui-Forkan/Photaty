@@ -71,7 +71,6 @@
     color: #fff;
     background-color: #7e7c7c;
     cursor: pointer;
-    /* width: 171px; */
     transtion: all 1s ease-in-out;
 }
 
@@ -112,5 +111,37 @@ button.submit {
 .profile-link {
     text-decoration: none;
     list-style-type: none;
+}
+
+@media (max-width: 470px) {
+    .header-profile {
+        font-size: 14px;
+    }
+    .photo-profile-img {
+        width: 250px;
+        height: 250px;
+    }
+    .photo-profile-img img {
+        width: 245px;
+        height: 245px;
+    }
+    form.form-container {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+    }
+    input.profile-iput-info {
+        width: 90%;
+        height: 25px;
+        padding: 7px;
+        font-size: 13px;
+    }
+    button.submit {
+        margin: 10px;
+        width: 150px;
+        height: 30px;
+        font-size: 14px;
+        padding: 5px;
+    }
 }
 

@@ -12,16 +12,13 @@ function PhotoDetails({ imageId }) {
 
   /**
    * Like An Image
-  */
-//  useEffect(()=>{
-//   likeImage()
-//  },[id])
-const likeImage = async (id) => {
+   */
+  const likeImage = async (id) => {
     if (!user) {
       navigate("/login");
       return;
     }
-    
+
     await axios
       .put(`/api/images/like/${id}`, like, {
         headers: {
@@ -30,31 +27,31 @@ const likeImage = async (id) => {
         },
       })
       .then((res) => {
-        setLike(res.data)
+        setLike(res.data);
       })
-      .catch((err) => setError(err.response.data.msg)); 
+      .catch((err) => setError(err.response.data.msg));
   };
 
-   /**
+  /**
    * Unlike An Image
-  */
-   const unLikeImage = async(id) => {
+   */
+  const unLikeImage = async (id) => {
     if (!user) {
       navigate("/login");
       return;
-    };
-  
+    }
+
     await axios
-    .put(`/api/images/unlike/${id}`, like, {
-      headers: {
-        "Content-Type": "application/json",
-        "x-auth-token": user.data.token,
-      },
-    })
-    .then((res) => {
-      setLike(res.data)
-    })
-    .catch((err) => setError(err.response.data.msg)); 
+      .put(`/api/images/unlike/${id}`, like, {
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": user.data.token,
+        },
+      })
+      .then((res) => {
+        setLike(res.data);
+      })
+      .catch((err) => setError(err.response.data.msg));
   };
   return (
     <div className="image-details">
