@@ -35,14 +35,14 @@ function Navbar() {
       });
       setMe(res?.data);
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
-  // console.log(me.avatar)
+  
   const avatarSrc = me?.avatar
     ? require(`../../assets/profile/${me.avatar}`)
     : defaultAvatar;
-
+  
   return (
     <div className="navbar">
       <button className="nav-btn open-btn" onClick={visibleNav}>
