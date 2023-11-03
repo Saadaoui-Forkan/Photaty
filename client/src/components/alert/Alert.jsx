@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import './alert.css'
 
 function Alert({error, setError}) {
   useEffect(() => {
-    if (error) {
+    if (error.length !== 0) {
       setTimeout(() => {
         setError('');
       }, 2500);

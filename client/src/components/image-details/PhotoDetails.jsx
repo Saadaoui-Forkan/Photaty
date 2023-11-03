@@ -1,7 +1,8 @@
 import React, {  useEffect, useState } from "react";
 import moment from 'moment'
 import avatar from '../../assets/photaty/avatar-profile.png'
-import { Link, useNavigate } from 'react-router-dom';
+import Alert from '../alert/Alert'
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 function PhotoDetails({ imageId }) {
@@ -9,6 +10,8 @@ function PhotoDetails({ imageId }) {
   const [error, setError] = useState("");
   const [like, setLike] = useState([]);
   const user = JSON.parse(localStorage.getItem("user"));
+  const imgDetailsSrc =  imageId.photo ? require(`../../assets/images/${imageId.photo}`) : "";
+  const avatarSrc = imageId.user?.avatar ? require(`../../assets/images/${imageId.user.avatar}`) : avatar
 
   /**
    * Like An Image
@@ -57,23 +60,21 @@ function PhotoDetails({ imageId }) {
     <div className="image-details">
       <div className="image-container">
         <img
-          src={
-            imageId.photo ? require(`../../assets/images/${imageId.photo}`) : ""
-          }
+          src={imgDetailsSrc}
           alt={imageId.title}
           className="image"
         />
-        {/* {modify && <Modify/>} */}
       </div>
 
       <div className="image-info-1">
         <div className="author">
           <div className="author-avatar">
-            <img src={avatar} alt="" className="author-avatar-img" />
+            <img src={avatarSrc} alt="" className="author-avatar-img" />
           </div>
           <h2 className="author-name">{imageId.user?.name}</h2>
         </div>
         <div className="likes">
+          {/* {error && <Alert error={error} setError={setError}/>} */}
           <div className="like" onClick={() => likeImage(imageId._id)}>
             <i className="fa-regular fa-thumbs-up"></i>
             {imageId.likes?.length === 0 ? "" : imageId.likes?.length}

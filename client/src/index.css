@@ -3,6 +3,9 @@
   margin: 0;
   padding: 0;
 }
+html {
+  background-color: #eee;
+}
 
 :root {
   --color1: #283d3b;

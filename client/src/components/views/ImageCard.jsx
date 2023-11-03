@@ -24,6 +24,7 @@ function ImageCard(props) {
   const user = JSON.parse(localStorage.getItem('user'))
   const imgSrc = photo ? require(`../../assets/images/${photo}`) : ""
   const avatarSrc = avatar ? require(`../../assets/profile/${avatar}`) : defaultUser
+  const [numLikes, setNumLikes] = useState(likes.length)
   
   /**
    * Like An Image
@@ -46,6 +47,7 @@ const likeImage = async (id) => {
     })
     .then((res) => {
       setLike(res.data)
+      setNumLikes(numLikes+1)
     })
     .catch((err) => setError(err.response.data.msg)); 
 };
@@ -68,6 +70,7 @@ const likeImage = async (id) => {
     })
     .then((res) => {
       setLike(res.data)
+      setNumLikes(numLikes-1)
     })
     .catch((err) => setError(err.response.data.msg)); 
   };
@@ -112,10 +115,10 @@ const likeImage = async (id) => {
       </div>
 
       <div className="menu-like">
-        {error && <Alert error={error} />}
+        {/* {error && <Alert error={error} />} */}
         <div className="like" onClick={() => likeImage(imageId)}>
           <i className="fa-regular fa-thumbs-up"></i>
-          {likes.length === 0 ? "" : likes.length}
+          {numLikes === 0 ? "" : numLikes}
         </div>
         <div className="dislike" onClick={() => unLikeImage(imageId)}>
           <i className="fa-regular fa-thumbs-down"></i>
