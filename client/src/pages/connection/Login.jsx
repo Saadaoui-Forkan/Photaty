@@ -36,7 +36,7 @@ function Login() {
   };
   return (
     <div className="login">
-      {error && <Alert error={error} setError={setError}/>}
+      {error && <Alert error={error}/>}
       <div className="loginWrapper">
         <div className="loginLeft">
           <img className="loginLogo" src={logo} alt="logo" />

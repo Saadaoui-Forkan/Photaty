@@ -20,7 +20,7 @@ function App() {
         <Route path="/edit-photo/:photo" element={<EditImage />} />
         <Route path="/:imgId" element={<ImageDetailsPage />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={<Register /> } />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

@@ -29,9 +29,6 @@ function ImageCard(props) {
   /**
    * Like An Image
   */
-//  useEffect(()=>{
-//   likeImage()
-//  },[id])
 const likeImage = async (id) => {
   if (!user) {
     navigate("/login");
@@ -115,7 +112,7 @@ const likeImage = async (id) => {
       </div>
 
       <div className="menu-like">
-        {/* {error && <Alert error={error} />} */}
+        {error && <Alert error={error} />}
         <div className="like" onClick={() => likeImage(imageId)}>
           <i className="fa-regular fa-thumbs-up"></i>
           {numLikes === 0 ? "" : numLikes}
