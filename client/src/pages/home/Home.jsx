@@ -27,20 +27,20 @@ function Home() {
       
       <div className="container">
         <div className="menu-container">
-          {
-            images.map((img, index)=>(
-              <ImageCard 
-                key={index}
-                photo={img.photo}
-                title={img.title}
-                author={img.user.name}
-                createdAt={img.createdAt}
-                avatar={img.user.avatar}
-                imageId={img._id}
-                likes={img.likes}
-              />
-            ))
-          }
+              {
+                images.length !== 0 && images.map((img, index)=>(
+                  <ImageCard 
+                    key={index}
+                    photo={img.photo}
+                    title={img.title}
+                    author={img.user.name}
+                    createdAt={img.createdAt}
+                    avatar={img.user.avatar}
+                    imageId={img._id}
+                    likes={img.likes}
+                  />
+                ))
+              }
         </div>
       </div>
      

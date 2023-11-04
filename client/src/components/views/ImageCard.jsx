@@ -5,6 +5,7 @@ import moment from 'moment'
 import axios from "axios";
 import Alert from "../alert/Alert";
 import defaultUser from "../../assets/photaty/avatar-profile.png"
+// import photaty from "../../assets/photaty/logo.png"
 
 function ImageCard(props) {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ function ImageCard(props) {
     handleRemove,
   } = props;
   const user = JSON.parse(localStorage.getItem('user'))
-  const imgSrc = photo ? require(`../../assets/images/${photo}`) : ""
+  const imgSrc = photo && require(`../../assets/images/${photo}`) 
   const avatarSrc = avatar ? require(`../../assets/profile/${avatar}`) : defaultUser
   const [numLikes, setNumLikes] = useState(likes.length)
   

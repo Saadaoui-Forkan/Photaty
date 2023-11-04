@@ -1,6 +1,5 @@
 # Photaty
 ### A website for sharing photos
-<img src="./Photaty.jpg">
 
 ## Environment Variables
 Create `.env` file in the backend folder and add the following

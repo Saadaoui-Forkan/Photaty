@@ -8,6 +8,7 @@ import Profile from './pages/profile/Profile'
 import ShareImage from "./pages/share-image/ShareImage";
 import MyPhotos from "./pages/my-photos/MyPhotos";
 import EditImage from "./pages/edit-image/EditImage";
+import Footer from "./components/footer/Footer";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/register" element={<Register /> } />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Footer/>
     </>
   );
 }
