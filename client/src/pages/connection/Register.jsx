@@ -37,7 +37,7 @@ function Register() {
       });
     })
     .catch(error => {
-      setError(error?.response?.data?.message)
+      setError(error?.response?.data?.errors[0].msg)
     })
   }
   return (

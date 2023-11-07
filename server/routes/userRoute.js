@@ -14,14 +14,13 @@ router.post(
   [
     check("name", "Name is required").not().isEmpty(),
     check("email", "Please include a valid email").isEmail(),
-    check(
-      "password",
-      "Please enter a password with 6 or more characters"
-    ).isLength({ min: 6 }),
-    check(
-      "confirmPassword",
-      "Please enter a confirm password"
-    ).isLength({ min: 6 }),
+    check("password", "Please enter a password with 6 or more characters").isLength({ min: 6 }),
+    check("confirmPassword", "Password does not match").custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw new Error("Passwords do not match");
+      }
+      return true;
+    }),
   ],
   registerUser
 );
@@ -32,13 +31,13 @@ router.post(
 // @access    Public
 router.post(
     "/login",
-    [
-      check("email", "Please include a valid email").isEmail(),
-      check(
-        "password",
-        "Please enter a password with 6 or more characters"
-      ).isLength({ min: 6 })
-    ],
+    // [
+    //   check("email", "Please include a valid email").isEmail(),
+    //   check(
+    //     "password",
+    //     "Please enter a password with 6 or more characters"
+    //   ).isLength({ min: 6 })
+    // ],
     loginUser
   );
 
