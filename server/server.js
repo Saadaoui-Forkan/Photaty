@@ -16,7 +16,7 @@ app.use(cors())
 app.get('/', (req,res) => res.send('API running'))
 
 // routes
-app.use('/api/users', require('./routes/UserRoute'))
+app.use('/api/users', require('./routes/userRoute'))
 app.use('/api/images', require('./routes/imageRoute'))
 
 app.listen(PORT, ()=> console.log(`Server is running on port ${PORT}`))

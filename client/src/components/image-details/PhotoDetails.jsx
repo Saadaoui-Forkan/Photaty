@@ -1,7 +1,6 @@
-import React, {  useEffect, useState } from "react";
+import React, { useState } from "react";
 import moment from 'moment'
 import avatar from '../../assets/photaty/avatar-profile.png'
-import Alert from '../alert/Alert'
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
@@ -11,7 +10,7 @@ function PhotoDetails({ imageId }) {
   const [like, setLike] = useState([]);
   const user = JSON.parse(localStorage.getItem("user"));
   const imgDetailsSrc =  imageId.photo ? require(`../../assets/images/${imageId.photo}`) : "";
-  const avatarSrc = imageId.user?.avatar ? require(`../../assets/images/${imageId.user.avatar}`) : avatar
+  const avatarSrc = imageId?.user?.avatar ? require(`../../assets/images/${imageId.user?.avatar}`) : avatar
 
   /**
    * Like An Image
@@ -74,7 +73,6 @@ function PhotoDetails({ imageId }) {
           <h2 className="author-name">{imageId.user?.name}</h2>
         </div>
         <div className="likes">
-          {/* {error && <Alert error={error} setError={setError}/>} */}
           <div className="like" onClick={() => likeImage(imageId._id)}>
             <i className="fa-regular fa-thumbs-up"></i>
             {imageId.likes?.length === 0 ? "" : imageId.likes?.length}

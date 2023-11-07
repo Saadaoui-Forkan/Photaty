@@ -8,7 +8,7 @@ const {
   unLikeImg,
   removeImg,
   editImg
-} = require("../controllers/ImgCtr");
+} = require("../controllers/imgCtr");
 const protect = require("../middleware/AuthMiddleware");
 const { check } = require("express-validator");
 const router = require("express").Router();
