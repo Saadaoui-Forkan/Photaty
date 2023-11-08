@@ -33,7 +33,7 @@ const registerUser = async(req, res) => {
             name,
             email,
             password: hashedPassword,
-            confirmPassword: hashedPassword
+            confirmPassword: hashedPassword,
         });
 
         await user.save();
@@ -97,26 +97,23 @@ const getCurrentUser = async(req, res) => {
 }
 
 // Update User Profile
-const updateProfile = async(req, res) => {
+const updateProfile = async (req, res) => {
     try {
-      let profile = await User.findById(req.user.id);
-      const { name, bio, status, avatar } = req.body;
-      profile.name = name;
-      profile.bio = bio;
-      profile.status = status;
-      profile.avatar = req.file ? req.file.filename : avatar;
-
-      await profile.save();
-
-      res.status(200).json({
-        msg: "success",
-        data: profile,
-      });
-    } catch (error) {
-      console.log(error);
-      res.status(500).send("Server error");
-    }
-}
+        const user = await User.findById(req.user.id);
+    
+        user.name = req.body.name;
+        user.bio = req.body.bio;
+        user.status = req.body.status;
+        user.avatar = req.file ? req.file.filename : user.avatar;
+    
+        const updatedUser = await user.save();
+    
+        res.status(200).json(updatedUser);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Server error");
+  }
+};
 
 module.exports = {
     registerUser,

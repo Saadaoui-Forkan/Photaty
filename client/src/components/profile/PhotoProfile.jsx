@@ -4,6 +4,7 @@ import HeaderProfile from './HeaderProfile'
 import axios from 'axios'
 import Alert from '../alert/Alert';
 import avatar from '../../assets/photaty/avatar-profile.png'
+import { useNavigate } from 'react-router-dom';
 
 function PhotoProfile() {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -14,6 +15,7 @@ function PhotoProfile() {
     const [bio, setBio] = useState("")
     const [status, setStatus] = useState("")
     const [error, setError] = useState("")
+    const navigate = useNavigate()
 
     const handleFileChange = (e) => {
       if (e.target.files && e.target.files[0]) {
@@ -28,8 +30,8 @@ function PhotoProfile() {
         formData.append('name', name)
         formData.append('bio', bio)
         formData.append('status', status)
-        if (profileImage) {
-          formData.append('avatar', profileAvatar, profileAvatar.name)
+        if (profileAvatar) {
+          formData.append('avatar', profileAvatar, profileAvatar?.name)
         }
       axios
       .post("/api/users/profile", formData, {
@@ -39,7 +41,8 @@ function PhotoProfile() {
         },
       })
       .then((res) => {
-        setData(res.data)
+        console.log(res.data)
+        navigate('/')
       })
       .catch((error) => setError(error.response.data.msg));
     };
@@ -83,6 +86,7 @@ function PhotoProfile() {
           value={bio}
           name="bio"
           onChange={(e)=> setBio(e.target.value)} 
+          required
         />
 
         <input 
@@ -92,6 +96,7 @@ function PhotoProfile() {
           value={status}
           name="status"
           onChange={(e)=> setStatus(e.target.value)}
+          required
         />
 
         <button className="submit" type="submit">

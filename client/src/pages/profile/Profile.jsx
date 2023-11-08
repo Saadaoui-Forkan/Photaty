@@ -10,7 +10,7 @@ function Profile() {
 
   useEffect(() => {
     getProfile()
-  }, [profile])
+  }, [])
   
   const getProfile = async() => {
       await axios.get('/api/users/me', {
