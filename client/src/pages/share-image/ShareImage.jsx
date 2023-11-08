@@ -46,7 +46,6 @@ function ShareImage() {
         })
         .catch((error) => setError(error.response.data.errors[0].msg));
   };
-    
   return (
     <div className='share-image'>
         <HeaderProfile

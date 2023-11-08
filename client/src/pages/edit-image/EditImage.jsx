@@ -15,7 +15,7 @@ function EditImage() {
   });
   const { title, description } = updatedPhoto;
   const onChange = (e) => {
-    setUpdatedPhoto({ ...updatedPhoto, [e.target.name]: e.target.value });
+    setUpdatedPhoto({ ...updatedPhoto, [e.target?.name]: e.target.value });
   };
   const navigate = useNavigate();
 
@@ -67,14 +67,35 @@ function EditImage() {
     <div className="share-image">
       <HeaderProfile title="Edit Image" paragraphe="" />
       <Navbar />
-      <ShareImageComponent
-        image={imageSrc}
-        show={false}
-        postImage={updateImg}
-        onChange={onChange}
-        title={title}
-        description={description}
-      />
+      <div className="share-container">
+        <div className="share-img">
+          <img alt={imageSrc} src={imageSrc} />
+        </div>
+        <form className="share-form-container" onSubmit={(e) => updateImg(e)}>
+          <div className="image-upload"></div>
+          <input
+            type="text"
+            className="share-title"
+            placeholder="Title ..."
+            name="title"
+            value={title}
+            onChange={onChange}
+          />
+
+          <textarea
+            type="text"
+            className="share-description"
+            placeholder="Image Description ..."
+            name="description"
+            value={description}
+            onChange={onChange}
+          />
+
+          <button className="submit" type="submit">
+            Update
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
