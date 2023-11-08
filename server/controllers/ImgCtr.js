@@ -146,7 +146,7 @@ const removeImg = async (req, res) => {
     await post.deleteOne()
     res.json({ msg: "Post removed" });
   } catch (err) {
-    return res.status(404).json({ msg: "Post Not Found" });
+    // return res.status(404).json({ msg: "Post Not Found" });
     res.status(500).send("Server error");
   }
 };
@@ -154,21 +154,18 @@ const removeImg = async (req, res) => {
 // Edit Image
 const editImg = async (req, res) => {
   try {
-    const post = await Image.findById(req.params.photoId);
-
-    if (!post) {
-      return res.status(404).json({ message: "post not found" });
-    }
-
-    const { title, description, photo } = req.body;
-    post.title = title;
-    post.description = description;
-    post.photo = photo ? photo.filename : post.photo;
-    // console.log(photo)
-    res.json({ msg: "Post Updated" });
-    await post.save();
-  } catch (err) {
-    console.error(err.message);
+    const updatedPost = await Image.findByIdAndUpdate(
+      req.params.photoId,
+      {
+        $set: {
+          title: req.body.title,
+          description: req.body.description,
+        },
+      },
+      { new: true }
+    );
+    res.status(200).json(updatedPost);
+  } catch (error) {
     res.status(500).send("Server error");
   }
 };

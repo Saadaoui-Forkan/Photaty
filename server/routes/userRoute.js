@@ -29,17 +29,7 @@ router.post(
 // @method    Post
 // @desc      Login User
 // @access    Public
-router.post(
-    "/login",
-    // [
-    //   check("email", "Please include a valid email").isEmail(),
-    //   check(
-    //     "password",
-    //     "Please enter a password with 6 or more characters"
-    //   ).isLength({ min: 6 })
-    // ],
-    loginUser
-  );
+router.post("/login", loginUser);
 
 // @route     api/users/me
 // @method    GET

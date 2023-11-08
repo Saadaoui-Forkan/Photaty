@@ -87,6 +87,6 @@ router.delete("/user_images/:photoId", protect, removeImg);
 // @method  PUT
 // @desc    Edit An Image
 // @access  Private
-router.post("/user_images/:photoId", protect, editImg);
+router.put("/user_images/:photoId", protect, editImg);
 
 module.exports = router;

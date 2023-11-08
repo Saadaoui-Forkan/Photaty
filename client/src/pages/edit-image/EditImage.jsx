@@ -2,15 +2,22 @@ import React, { useEffect, useState } from 'react'
 import HeaderProfile from '../../components/profile/HeaderProfile';
 import Navbar from '../../components/navbar/Navbar';
 import ShareImageComponent from '../../components/share/ShareImageComponent';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 function EditImage() {
     const user = JSON.parse(localStorage.getItem('user'))
     const {photo} = useParams()
     const [photos, setPhotos] = useState([])
-    const [title, settitle] = useState("")
-    const [description, setdescription] = useState("")
+    const [updatedPhoto, setUpdatedPhoto] = useState({
+      title: "",
+      description: ""
+    })
+    const { title, description } = updatedPhoto
+    const onChange = (e) => {
+      setUpdatedPhoto({ ...updatedPhoto, [e.target.name]: e.target.value });
+    };
+    const navigate = useNavigate()
 
     /**
      * Get The Current Image
@@ -42,18 +49,16 @@ function EditImage() {
      */
     const updateImg = (e) => {
         e.preventDefault()
-        const formData = new FormData();
-        formData.append("title", title);
-        formData.append("description", description);
         axios
-        .post(`/api/images/user_images/${current_photo._id}`, formData, {
+        .put(`/api/images/user_images/${current_photo._id}`, updatedPhoto, {
           headers: {
             "Content-Type": "application/json",
             "x-auth-token": user.data?.token,
           },
         })
         .then((res) => {
-          console.log(res?.data) 
+          setUpdatedPhoto(res.data) 
+          navigate('/')
         })
         .catch((error) => console.error(error));
       
@@ -68,13 +73,16 @@ function EditImage() {
       />
       <Navbar/>
       <ShareImageComponent
-        imageTitle={title}
-        setImageTitle={settitle}
-        imageDescription={description}
-        setImageDescription={setdescription}
+        // imageTitle={title}
+        // setImageTitle={settitle}
+        // imageDescription={description}
+        // setImageDescription={setdescription}
         image={imageSrc}
         show={false}
         postImage={updateImg}
+        onChange={onChange}
+        title={title}
+        description={description}
       />
     </div>
   );

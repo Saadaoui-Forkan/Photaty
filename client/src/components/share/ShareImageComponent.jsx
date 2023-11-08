@@ -6,14 +6,17 @@ function ShareImageComponent({
   onInputChange,
   image,
   postImage,
-  imageTitle,
-  setImageTitle,
-  imageDescription,
-  setImageDescription,
+  // imageTitle,
+  // setImageTitle,
+  // imageDescription,
+  // setImageDescription,
   error,
-  show
+  show,
+  onChange,
+  title,
+  description,
 }) {
-  
+  // console.log({title, description})
   return (
     <div className="share-container">
       <div className="share-img">
@@ -39,8 +42,8 @@ function ShareImageComponent({
           className="share-title"
           placeholder="Title ..."
           name="title"
-          value={imageTitle}
-          onChange={(e) => setImageTitle(e.target.value)}
+          value={title}
+          onChange={onChange}
         />
 
         <textarea
@@ -48,8 +51,8 @@ function ShareImageComponent({
           className="share-description"
           placeholder="Image Description ..."
           name="description"
-          value={imageDescription}
-          onChange={(e) => setImageDescription(e.target.value)}
+          value={description}
+          onChange={onChange}
         />
 
         <button className="submit" type="submit">
