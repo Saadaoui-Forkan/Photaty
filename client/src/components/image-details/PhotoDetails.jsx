@@ -5,13 +5,18 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 function PhotoDetails({ imageId }) {
+  console.log(imageId)
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [like, setLike] = useState([]);
   const user = JSON.parse(localStorage.getItem("user"));
-  const imgDetailsSrc =  imageId.photo ? require(`../../assets/images/${imageId.photo}`) : "";
-  const avatarSrc = imageId?.user?.avatar ? require(`../../assets/images/${imageId.user?.avatar}`) : avatar
 
+  const imgDetailsSrc = imageId?.photo
+    ? require(`../../assets/images/${imageId.photo}`)
+    : "";
+  const avatarSrc = imageId?.user?.avatar
+    ? require(`../../assets/images/${imageId.user.avatar}`)
+    : avatar;
   /**
    * Like An Image
    */
@@ -70,14 +75,14 @@ function PhotoDetails({ imageId }) {
           <div className="author-avatar">
             <img src={avatarSrc} alt="" className="author-avatar-img" />
           </div>
-          <h2 className="author-name">{imageId.user?.name}</h2>
+          <h2 className="author-name">{imageId?.user?.name}</h2>
         </div>
         <div className="likes">
           <div className="like" onClick={() => likeImage(imageId._id)}>
             <i className="fa-regular fa-thumbs-up"></i>
-            {imageId.likes?.length === 0 ? "" : imageId.likes?.length}
+            {imageId.likes?.length === 0 ? "" : imageId?.likes?.length}
           </div>
-          <div className="dislike" onClick={() => unLikeImage(imageId._id)}>
+          <div className="dislike" onClick={() => unLikeImage(imageId?._id)}>
             <i className="fa-regular fa-thumbs-down"></i>
           </div>
         </div>
@@ -85,11 +90,11 @@ function PhotoDetails({ imageId }) {
 
       <div className="image-details-info-2">
         <div className="date">
-          <h2>Ceated at: {moment(imageId.date).format("DD-MM-YYYY")}</h2>
+          <h2>Ceated at: {moment(imageId?.date).format("DD-MM-YYYY")}</h2>
         </div>
         <div className="details">
-          <h2>{imageId.title}</h2>
-          <p>{imageId.description}</p>
+          <h2>{imageId?.title}</h2>
+          <p>{imageId?.description}</p>
         </div>
       </div>
     </div>

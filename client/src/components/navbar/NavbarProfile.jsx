@@ -2,10 +2,11 @@ import React from 'react'
 import './navbar.css'
 import { Link, useNavigate } from 'react-router-dom'
 
-function NavbarProfile() {
+function NavbarProfile({setVisible}) {
   const navigate = useNavigate();
   const logout = () => {
-    localStorage.removeItem("user");
+    localStorage.removeItem("user")
+    setVisible(false)
     navigate('/')
   }
   return (

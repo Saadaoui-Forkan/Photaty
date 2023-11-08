@@ -63,12 +63,14 @@ function Navbar() {
                 </button>
               </Link>
             </div>
-            <div className="user-description">
-              <h3 className='user-info'>{me?.name}</h3>
-              <h3 className='user-info'>{me?.bio}</h3>
-              <h3 className='user-info'>{me?.status}</h3>
-            </div>
-            {user ? <NavbarProfile /> : <NavbarHome />}
+            {user && (
+              <div className="user-description">
+                <h3 className="user-info">{me?.name}</h3>
+                <h3 className="user-info">{me?.bio}</h3>
+                <h3 className="user-info">{me?.status}</h3>
+              </div>
+            )}
+            {user ? <NavbarProfile setVisible={setVisible}/> : <NavbarHome />}
           </div>
         </div>
       </div>

@@ -14,17 +14,18 @@ function ImageDetails() {
 
   useEffect(() => {
     getImage();
-  }, [imageId]);
+  }, []);
 
   const getImage = async () => {
     try {
       const res = await axios.get(`/api/images/all/${imgId}`);
-      setImageId(res?.data);
+      setImageId(res.data);
+      // console.log(res.data)
     } catch (error) {
       console.log(error.message)
     }
   };
-
+  // console.log(imageId)
   return (
     <>
       <Navbar />
