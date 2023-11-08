@@ -9,6 +9,7 @@ function PhotoDetails({ imageId }) {
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [like, setLike] = useState([]);
+  const [likes, setLikes] = useState(like.length);
   const user = JSON.parse(localStorage.getItem("user"));
 
   const imgDetailsSrc = imageId?.photo
@@ -35,6 +36,7 @@ function PhotoDetails({ imageId }) {
       })
       .then((res) => {
         setLike(res.data);
+        setLikes(likes+1)
       })
       .catch((err) => setError(err.response.data.msg));
   };
@@ -57,6 +59,7 @@ function PhotoDetails({ imageId }) {
       })
       .then((res) => {
         setLike(res.data);
+        setLikes(likes-1)
       })
       .catch((err) => setError(err.response.data.msg));
   };
@@ -80,7 +83,7 @@ function PhotoDetails({ imageId }) {
         <div className="likes">
           <div className="like" onClick={() => likeImage(imageId._id)}>
             <i className="fa-regular fa-thumbs-up"></i>
-            {imageId.likes?.length === 0 ? "" : imageId?.likes?.length}
+            {likes === 0 ? "" : likes}
           </div>
           <div className="dislike" onClick={() => unLikeImage(imageId?._id)}>
             <i className="fa-regular fa-thumbs-down"></i>
