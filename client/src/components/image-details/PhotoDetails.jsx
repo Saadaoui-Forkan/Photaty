@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 function PhotoDetails({ imageId }) {
-  console.log(imageId)
+  // console.log(imageId)
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [like, setLike] = useState([]);
@@ -15,7 +15,7 @@ function PhotoDetails({ imageId }) {
     ? require(`../../assets/images/${imageId.photo}`)
     : "";
   const avatarSrc = imageId?.user?.avatar
-    ? require(`../../assets/images/${imageId.user.avatar}`)
+    ? require(`../../assets/profile/${imageId.user.avatar}`)
     : avatar;
   /**
    * Like An Image

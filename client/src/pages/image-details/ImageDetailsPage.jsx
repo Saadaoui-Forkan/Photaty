@@ -22,10 +22,10 @@ function ImageDetails() {
       setImageId(res.data);
       // console.log(res.data)
     } catch (error) {
-      console.log(error.message)
+      console.error(error.message)
     }
   };
-  // console.log(imageId)
+  console.log(imageId)
   return (
     <>
       <Navbar />

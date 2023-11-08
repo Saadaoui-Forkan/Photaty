@@ -27,13 +27,15 @@ function Navbar() {
 
   const getMe = async () => {
     try {
-      const res = await axios.get(`api/users/me`, {
-        headers: {
-          "Content-Type": "application/json",
-          "x-auth-token": user?.data?.token,
-        },
-      });
-      setMe(res?.data);
+      if (user) {
+        const res = await axios.get(`api/users/me`, {
+          headers: {
+            "Content-Type": "application/json",
+            "x-auth-token": user?.data?.token,
+          },
+        });
+        setMe(res?.data);
+      }
     } catch (error) {
       console.log(error);
     }
