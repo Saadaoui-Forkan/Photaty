@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import ImageCard from '../../components/views/ImageCard'
 import Navbar from "../../components/navbar/Navbar";
 import axios from "axios";
-import { Link } from 'react-router-dom'
 
 function Home() {
   const [images, setImages] = useState([]);
@@ -21,7 +20,6 @@ function Home() {
       console.error(error);
     }
   };
-  // console.log(images)
   return (
     <>
       <Navbar />
@@ -42,14 +40,8 @@ function Home() {
               />
             ))
           ) : (
-            <div className="empty">
-              <h2>
-                Welcome to the Photaty app. Be the first to share with us the
-                best photos
-              </h2>
-              <Link className="empty-link" to="/register">
-                Register
-              </Link>
+            <div className="spinner-container">
+              <div className="loading-spinner"></div>
             </div>
           )}
         </div>
