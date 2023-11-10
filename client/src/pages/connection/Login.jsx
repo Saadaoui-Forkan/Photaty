@@ -32,7 +32,12 @@ function Login() {
           password: "",
         });
       })
-      .catch((error) => setError(error.response.data.message));
+      .catch((error) => {
+        setError(error.response.data.message)
+        setTimeout(()=>{
+          setError(null)
+        }, 2000)
+      });
   };
   return (
     <div className="login">

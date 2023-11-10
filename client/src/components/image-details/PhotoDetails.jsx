@@ -3,6 +3,7 @@ import moment from 'moment'
 import avatar from '../../assets/photaty/avatar-profile.png'
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import Alert from "../alert/Alert";
 
 function PhotoDetails({ imageId }) {
   // console.log(imageId)
@@ -36,9 +37,14 @@ function PhotoDetails({ imageId }) {
       })
       .then((res) => {
         setLike(res.data);
-        setLikes(likes+1)
+        setLikes(likes + 1);
       })
-      .catch((err) => setError(err.response.data.msg));
+      .catch((err) => {
+        setError(err.response.data.msg);
+        setTimeout(() => {
+          setError(null);
+        }, 1500);
+      });
   };
 
   /**
@@ -59,18 +65,19 @@ function PhotoDetails({ imageId }) {
       })
       .then((res) => {
         setLike(res.data);
-        setLikes(likes-1)
+        setLikes(likes - 1);
       })
-      .catch((err) => setError(err.response.data.msg));
+      .catch((err) => {
+        setError(err.response.data.msg);
+        setTimeout(() => {
+          setError(null);
+        }, 1500);
+      });
   };
   return (
     <div className="image-details">
       <div className="image-container">
-        <img
-          src={imgDetailsSrc}
-          alt={imageId.title}
-          className="image"
-        />
+        <img src={imgDetailsSrc} alt={imageId.title} className="image" />
       </div>
 
       <div className="image-info-1">
@@ -80,6 +87,7 @@ function PhotoDetails({ imageId }) {
           </div>
           <h2 className="author-name">{imageId?.user?.name}</h2>
         </div>
+        {error && <Alert error={error} />}
         <div className="likes">
           <div className="like" onClick={() => likeImage(imageId._id)}>
             <i className="fa-regular fa-thumbs-up"></i>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ImageCard from '../../components/views/ImageCard'
 import Navbar from "../../components/navbar/Navbar";
 import axios from "axios";
+import Spinner from "../../components/spinner/Spinner";
 
 function Home() {
   const [images, setImages] = useState([]);
@@ -40,9 +41,7 @@ function Home() {
               />
             ))
           ) : (
-            <div className="spinner-container">
-              <div className="loading-spinner"></div>
-            </div>
+            <Spinner/>
           )}
         </div>
       </div>

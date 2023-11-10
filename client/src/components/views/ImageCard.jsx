@@ -47,7 +47,12 @@ const likeImage = async (id) => {
       setLike(res.data)
       setNumLikes(numLikes+1)
     })
-    .catch((err) => setError(err.response.data.msg)); 
+    .catch((err) => {
+      setError(err.response.data.msg);
+      setTimeout(()=>{
+        setError(null)
+      }, 1500)
+    }); 
 };
 
   /**
@@ -70,7 +75,12 @@ const likeImage = async (id) => {
       setLike(res.data)
       setNumLikes(numLikes-1)
     })
-    .catch((err) => setError(err.response.data.msg)); 
+    .catch((err) => {
+      setError(err.response.data.msg)
+      setTimeout(()=>{
+        setError(null)
+      }, 1500)
+    }); 
   };
 
   return (

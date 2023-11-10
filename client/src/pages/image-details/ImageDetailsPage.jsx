@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../../components/navbar/Navbar';
 import PhotoDetails from '../../components/image-details/PhotoDetails';
+import Spinner from '../../components/spinner/Spinner'
 
 function ImageDetails() {
   const {imgId} = useParams()
@@ -28,9 +29,7 @@ function ImageDetails() {
   return (
     <>
       <Navbar />
-      <PhotoDetails 
-        imageId={imageId}
-      />
+      {imageId.photo ? <PhotoDetails imageId={imageId} /> : <Spinner />}
     </>
   );
 }

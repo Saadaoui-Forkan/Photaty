@@ -38,6 +38,9 @@ function Register() {
     })
     .catch(error => {
       setError(error?.response?.data?.errors[0].msg)
+      setTimeout(()=>{
+        setError(null)
+      }, 2000)
     })
   }
   return (
