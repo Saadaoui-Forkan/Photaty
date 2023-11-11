@@ -9,6 +9,7 @@ import ShareImage from "./pages/share-image/ShareImage";
 import MyPhotos from "./pages/my-photos/MyPhotos";
 import EditImage from "./pages/edit-image/EditImage";
 import Footer from "./components/footer/Footer";
+import Navbar from "./components/navbar/Navbar";
 
 function App() {
   return (

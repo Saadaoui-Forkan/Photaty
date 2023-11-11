@@ -4,10 +4,10 @@ const {
   imageId,
   userImages,
   userImageId,
-  likeImg,
-  unLikeImg,
   removeImg,
-  editImg
+  editImg,
+  likeImg,
+  unLikeImg
 } = require("../controllers/imgCtr");
 const protect = require("../middleware/AuthMiddleware");
 const { check } = require("express-validator");
@@ -76,6 +76,7 @@ router.put("/like/:id", protect, likeImg);
 // @desc    Like An Image
 // @access  Private
 router.put("/unlike/:id", protect, unLikeImg);
+
 
 // @route   api/images/user_images/:photoId
 // @method  DELETE

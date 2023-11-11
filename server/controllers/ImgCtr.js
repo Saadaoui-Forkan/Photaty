@@ -176,8 +176,8 @@ module.exports = {
   imageId,
   userImages,
   userImageId,
+  removeImg,
+  editImg,
   likeImg,
   unLikeImg,
-  removeImg,
-  editImg
 };

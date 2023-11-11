@@ -1,20 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import './navbar.css'
-import defaultAvatar from '../../assets/photaty/avatar-profile.png'
-import { Link } from 'react-router-dom'
-import NavbarHome from './NavbarHome';
 import NavbarProfile from './NavbarProfile';
+import Logo from './Logo';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 function Navbar() {
-  /**
-   * Animated Navbar
-   */
-  const [visible, setVisible] = useState(false);
-  const visibleNav = () => {
-    setVisible(!visible);
-  };
-  /************************************************** */
   const user = JSON.parse(localStorage.getItem("user"));
   const [me, setMe] = useState([]);
 
@@ -41,42 +32,21 @@ function Navbar() {
     }
   };
   
-  const avatarSrc = me?.avatar
-    ? require(`../../assets/profile/${me.avatar}`)
-    : defaultAvatar;
-  
   return (
-    <div className="navbar">
-      <button className="nav-btn open-btn" onClick={visibleNav}>
-        <i className="fas fa-bars"></i>
-      </button>
-
-      <div className={visible ? "nav visible nav-black" : "nav nav-black"}>
-        <div className={visible ? "nav visible nav-red" : "nav nav-red"}>
-          <div className={visible ? "nav visible nav-white" : "nav nav-white"}>
-            <button className="nav-btn close-btn" onClick={visibleNav}>
-              <i className="fas fa-times"></i>
-            </button>
-            <div className="avatar-container">
-              <img src={avatarSrc} alt="Logo" className="logo" />
-              <Link to="/profile">
-                <button className="avatar-edit" disabled={user ? false : true}>
-                  <i className="fa-solid fa-user-pen"></i>
-                </button>
-              </Link>
-            </div>
-            {user && (
-              <div className="user-description">
-                <h3 className="user-info">{me?.name}</h3>
-                <h3 className="user-info">{me?.bio}</h3>
-                <h3 className="user-info">{me?.status}</h3>
-              </div>
-            )}
-            {user ? <NavbarProfile setVisible={setVisible}/> : <NavbarHome />}
-          </div>
-        </div>
+    <nav className="navbar">
+      {user ? <NavbarProfile me={me}/> : ""}
+      <Logo />
+      <div className="nav-right">
+        <ul className="nav-menu">
+          <li className="nav-item">
+            <Link to="/">Home</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/login">Connection</Link>
+          </li>
+        </ul>
       </div>
-    </div>
+    </nav>
   );
 }
 
