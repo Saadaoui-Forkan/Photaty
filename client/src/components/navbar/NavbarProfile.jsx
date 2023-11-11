@@ -3,7 +3,8 @@ import './navbar.css'
 import { Link, useNavigate } from 'react-router-dom'
 import defaultAvatar from '../../assets/photaty/avatar-profile.png'
 
-function NavbarProfile({ me}) {
+function NavbarProfile({me}) {
+  // console.log(me)
   const [visible, setVisible] = useState(false);
   const visibleNav = () => {
     setVisible(!visible);
@@ -15,7 +16,7 @@ function NavbarProfile({ me}) {
     navigate('/login')
   }
   const avatarSrc = me?.avatar
-    ? require(`../../assets/profile/${me.avatar}`)
+    ? require(`../../assets/profile/${me?.avatar}`)
     : defaultAvatar;
   
   return (

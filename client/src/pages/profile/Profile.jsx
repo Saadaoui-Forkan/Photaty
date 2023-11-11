@@ -24,7 +24,7 @@ function Profile() {
   return (
     <div className='profile'>
       <Navbar/>
-      <PhotoProfile/>
+      <PhotoProfile profile={profile}/>
     </div>
   );
 }

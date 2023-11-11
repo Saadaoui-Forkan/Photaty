@@ -6,34 +6,51 @@ import Alert from '../alert/Alert';
 import avatar from '../../assets/photaty/avatar-profile.png'
 import { useNavigate } from 'react-router-dom';
 
-function PhotoProfile() {
-    const user = JSON.parse(localStorage.getItem("user"));
-    const [profileAvatar, setProfileAvatar] = useState(null)
-    const [profileImage, setProfileImage] = useState(avatar)
-    const [data, setData] = useState([])
-    const [name, setName] = useState("")
-    const [bio, setBio] = useState("")
-    const [status, setStatus] = useState("")
-    const [error, setError] = useState("")
-    const navigate = useNavigate()
+function PhotoProfile({ profile }) {
+  const user = JSON.parse(localStorage.getItem("user"));
+  let profilePhoto = profile?.avatar
+    ? require(`../../assets/profile/${profile.avatar}`)
+    : avatar;
+  const [profileAvatar, setProfileAvatar] = useState(null);
+  let [profileImage, setProfileImage] = useState(profilePhoto);
+  const [data, setData] = useState([]);
+  let [name, setName] = useState("");
+  let [bio, setBio] = useState("");
+  let [status, setStatus] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-    const handleFileChange = (e) => {
-      if (e.target.files && e.target.files[0]) {
-        setProfileImage(URL.createObjectURL(e.target.files[0]));
-        setProfileAvatar(e.target.files[0]);
-      }
-    };
+  //Appear Old User Data Inside Input Fields
+  useEffect(() => {
+    if (profile) {
+      setName(profile.name || "");
+      setBio(profile.bio || "");
+      setStatus(profile.status || "");
+      setProfileImage(profilePhoto);
+    }
+  }, [profile]);
 
-    const handleSave = (e) => {
-        e.preventDefault()
-        const formData = new FormData()
-        formData.append('name', name)
-        formData.append('bio', bio)
-        formData.append('status', status)
-        if (profileAvatar) {
-          formData.append('avatar', profileAvatar, profileAvatar?.name)
-        }
-      axios
+  // Handle Change Photo Profile
+  const handleFileChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setProfileImage(URL.createObjectURL(e.target.files[0]));
+      setProfileAvatar(e.target.files[0]);
+    }
+  };
+
+  // Updata User Data
+  const handleSave = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("bio", bio);
+    formData.append("status", status);
+    if (profileAvatar) {
+      formData.append("avatar", profileAvatar, profileAvatar?.name);
+    }
+    
+    axios
       .post("/api/users/profile", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -41,11 +58,11 @@ function PhotoProfile() {
         },
       })
       .then((res) => {
-        console.log(res.data)
-        navigate('/')
+        setData(res.data);
+        navigate("/");
       })
       .catch((error) => setError(error.response.data.msg));
-    };
+  };
 
   return (
     <div className="photo-profile">
@@ -54,14 +71,14 @@ function PhotoProfile() {
         paragraphe="Add information about yourself."
       />
       <div className="photo-profile-img">
-        <img alt="" src={profileImage}/>
+        <img alt="" src={profileImage} />
       </div>
-      <form 
-        encType="multipart/form-data" 
-        className='form-container' 
+      <form
+        encType="multipart/form-data"
+        className="form-container"
         onSubmit={handleSave}
       >
-        {error && <Alert error={error}/>}
+        {error && <Alert error={error} />}
         <input
           className="photo-profile-input"
           type="file"
@@ -69,33 +86,33 @@ function PhotoProfile() {
           accept="image/*"
           onChange={handleFileChange}
         />
-        <input 
-          type="text" 
-          className="profile-iput-info" 
+        <input
+          type="text"
+          className="profile-iput-info"
           placeholder="name"
           value={name}
           name="name"
-          onChange={(e)=> setName(e.target.value)}
+          onChange={(e) => setName(e.target.value)}
           required
         />
 
-        <input 
-          type="text" 
-          className="profile-iput-info" 
+        <input
+          type="text"
+          className="profile-iput-info"
           placeholder="bio"
           value={bio}
           name="bio"
-          onChange={(e)=> setBio(e.target.value)} 
+          onChange={(e) => setBio(e.target.value)}
           required
         />
 
-        <input 
-          type="text" 
-          className="profile-iput-info" 
-          placeholder="status" 
+        <input
+          type="text"
+          className="profile-iput-info"
+          placeholder="status"
           value={status}
           name="status"
-          onChange={(e)=> setStatus(e.target.value)}
+          onChange={(e) => setStatus(e.target.value)}
           required
         />
 
