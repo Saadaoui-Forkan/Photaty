@@ -4,6 +4,7 @@ import axios from 'axios'
 import ImageCard from '../../components/views/ImageCard'
 import '../../components/views/views.css'
 import { Link } from 'react-router-dom'
+import NoPhotos from '../../components/views/NoPhotos'
 
 function MyPhotos() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -48,11 +49,7 @@ function MyPhotos() {
       <Navbar />
       <div className="menu-container">
         {photos.length == 0 ? (
-          <div className="empty">
-            <Link className="empty-link" to="/share-image">
-              Share with us the best pictures.
-            </Link>
-          </div>
+          <NoPhotos />
         ) : (
           photos.map((photo, index) => (
             <ImageCard
