@@ -22,58 +22,32 @@ function PhotoDetails({ imageId }) {
   /**
    * Like An Image
    */
-  const likeImage = async (id) => {
-    if (!user) {
-      navigate("/login");
-      return;
-    }
+  // const likeImage = async (id) => {
+  //   if (!user) {
+  //     navigate("/login");
+  //     return;
+  //   }
 
-    await axios
-      .put(`/api/images/like/${id}`, like, {
-        headers: {
-          "Content-Type": "application/json",
-          "x-auth-token": user.data.token,
-        },
-      })
-      .then((res) => {
-        setLike(res.data);
-        setLikes(likes + 1);
-      })
-      .catch((err) => {
-        setError(err.response.data.msg);
-        setTimeout(() => {
-          setError(null);
-        }, 1500);
-      });
-  };
+  //   await axios
+  //     .put(`/api/images/like/${id}`, like, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "x-auth-token": user.data.token,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       setLike(res.data);
+  //       setLikes(likes + 1);
+  //     })
+  //     .catch((err) => {
+  //       setError(err.response.data.msg);
+  //       setTimeout(() => {
+  //         setError(null);
+  //       }, 1500);
+  //     });
+  // };
 
-  /**
-   * Unlike An Image
-   */
-  const unLikeImage = async (id) => {
-    if (!user) {
-      navigate("/login");
-      return;
-    }
-
-    await axios
-      .put(`/api/images/unlike/${id}`, like, {
-        headers: {
-          "Content-Type": "application/json",
-          "x-auth-token": user.data.token,
-        },
-      })
-      .then((res) => {
-        setLike(res.data);
-        setLikes(likes - 1);
-      })
-      .catch((err) => {
-        setError(err.response.data.msg);
-        setTimeout(() => {
-          setError(null);
-        }, 1500);
-      });
-  };
+  
   return (
     <div className="image-details">
       <div className="image-container">
@@ -89,12 +63,14 @@ function PhotoDetails({ imageId }) {
         </div>
         {error && <Alert error={error} />}
         <div className="likes">
-          <div className="like" onClick={() => likeImage(imageId._id)}>
+          <div className="like" 
+            // onClick={() => likeImage(imageId._id)}
+          >
             <i className="fa-regular fa-thumbs-up"></i>
-            {likes === 0 ? "" : likes}
+            
           </div>
-          <div className="dislike" onClick={() => unLikeImage(imageId?._id)}>
-            <i className="fa-regular fa-thumbs-down"></i>
+          <div className="dislike">
+            {likes === 0 ? "" : likes}          
           </div>
         </div>
       </div>

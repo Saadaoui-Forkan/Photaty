@@ -9,10 +9,10 @@ function Profile() {
   const [err, setErr] = useState('')
 
   useEffect(() => {
-    getProfile()
+    getMe()
   }, [])
   
-  const getProfile = async() => {
+  const getMe = async() => {
       await axios.get('/api/users/me', {
         headers: {
           'Content-Type': 'application/json',

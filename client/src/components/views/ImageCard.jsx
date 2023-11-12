@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import './views.css'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment'
 import axios from "axios";
 import Alert from "../alert/Alert";
 import defaultUser from "../../assets/photaty/avatar-profile.png"
-// import photaty from "../../assets/photaty/logo.png"
 
 function ImageCard(props) {
   const navigate = useNavigate();
@@ -126,10 +125,10 @@ const likeImage = async (id) => {
         {error && <Alert error={error} />}
         <div className="like" onClick={() => likeImage(imageId)}>
           <i className="fa-regular fa-thumbs-up"></i>
-          {numLikes === 0 ? "" : numLikes}
+          
         </div>
-        <div className="dislike" onClick={() => unLikeImage(imageId)}>
-          <i className="fa-regular fa-thumbs-down"></i>
+        <div className="dislike">
+          {numLikes === 0 ? "" : numLikes}
         </div>
       </div>
     </div>

@@ -46,8 +46,10 @@ const allImages = async (req, res) => {
 // Get Image By Id
 const imageId = async (req, res) => {
   try {
-    const post = await Image.findById(req.params.img_id)
-      .populate("user", "name avatar id" );
+    const post = await Image.findById(req.params.img_id).populate(
+      "user",
+      "name avatar id"
+    );
     res.json(post);
   } catch (error) {
     console.log(error.message);
@@ -61,7 +63,7 @@ const userImages = async (req, res) => {
     const images = await Image.find({ user: req.user.id })
       .sort({ date: -1 })
       .populate("user", "name avatar id");
-    
+
     res.json(images);
   } catch (error) {
     console.error(error.message);
@@ -80,54 +82,36 @@ const userImageId = async (req, res) => {
   }
 };
 
-// Like An Image
-const likeImg = async (req, res) => {
+// HandleLike An Image
+const handleLikeImg = async (req, res) => {
   try {
-    const post = await Image.findById(req.params.id);
-    // Check if the post has already been likred
-    if (
-      post.likes.filter((like) => like.user.toString() === req.user.id).length >
-      0
-    ) {
-      return res.status(400).json({ msg: "Post already liked" });
+    
+    const userId = req.user.id
+    const { id: postId } = req.params;
+    const post = await Image.findById(postId);
+    const likedPost = post.likes.find(p => p.user.toString() == userId)
+
+    if (!post) {
+      return res.status(404).json({ message: "post not found" });
     }
 
-    post.likes.unshift({ user: req.user.id });
+    if (!likedPost) {
+      post.likes.unshift({ user: req.user.id });
+      await post.save();
+      res.status(200).json({ message: "post is liked" })
+    } else {
+      const removeIndex = post.likes
+        .map((like) => like.user.toString())
+        .indexOf(req.user.id)
 
-    await post.save();
-
-    res.json(post.likes);
+      post.likes.splice(removeIndex, 1)
+      await post.save();
+      res.status(200).json({ message: "post is disliked" })
+    }
+     
   } catch (err) {
     console.log(err.message);
     res.status(500).json("Server Error");
-  }
-};
-
-// UnLike An Image
-const unLikeImg = async (req, res) => {
-  try {
-    const post = await Image.findById(req.params.id);
-
-    // Check if the post has been liked
-    if (
-      post.likes.filter((like) => like.user.toString() === req.user.id)
-        .length === 0
-    ) {
-      return res.status(400).json({ msg: "Post has not yet been liked" });
-    }
-
-    // Get remove index
-    const removeIndex = post.likes
-      .map((like) => like.user.toString())
-      .indexOf(req.user.id);
-
-    post.likes.splice(removeIndex, 1);
-
-    await post.save();
-    res.json(post.likes);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
   }
 };
 
@@ -143,7 +127,7 @@ const removeImg = async (req, res) => {
     if (post.user.toString() !== req.user.id) {
       return res.status(401).json({ msg: "User not authorized" });
     }
-    await post.deleteOne()
+    await post.deleteOne();
     res.json({ msg: "Post removed" });
   } catch (err) {
     // return res.status(404).json({ msg: "Post Not Found" });
@@ -154,13 +138,13 @@ const removeImg = async (req, res) => {
 // Update Image
 const editImg = async (req, res) => {
   try {
-    const post = await Image.findById(req.params.photoId)
-    
-    post.title = req.body.title
-    post.description = req.body.description
+    const post = await Image.findById(req.params.photoId);
+
+    post.title = req.body.title;
+    post.description = req.body.description;
     post.photo = req.file ? req.file.filename : post.photo;
-    
-    const updatedPost = await post.save()
+
+    const updatedPost = await post.save();
     res.status(200).json(updatedPost);
   } catch (error) {
     res.status(500).send("Server error" + error.message);
@@ -175,6 +159,5 @@ module.exports = {
   userImageId,
   removeImg,
   editImg,
-  likeImg,
-  unLikeImg,
+  handleLikeImg,
 };

@@ -68,7 +68,7 @@ function EditImage() {
     if (imagePhoto) {
       formData.append("photo", imagePhoto, imagePhoto?.name);
     }
-    // formData.append("photo", imagePhoto)
+
     axios
       .post(`/api/images/user_images/${current_photo?._id}`, formData, {
         headers: {

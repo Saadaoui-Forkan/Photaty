@@ -21,7 +21,8 @@ const ImageSchema = new Schema({
   likes: [
     {
       user: {
-        type: Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        ref: "user",
       }
     }
   ],

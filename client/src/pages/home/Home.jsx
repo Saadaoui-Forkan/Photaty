@@ -35,7 +35,7 @@ function Home() {
                 title={img.title}
                 author={img.user.name}
                 createdAt={img.createdAt}
-                avatar={img.user.avatar}
+                avatar={img?.user?.avatar}
                 imageId={img._id}
                 likes={img.likes}
               />
