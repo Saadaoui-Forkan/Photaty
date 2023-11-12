@@ -101,17 +101,19 @@ const updateProfile = async (req, res) => {
     try {
         const user = await User.findById(req.user.id);
     
-        user.name = req.body.name;
-        user.bio = req.body.bio;
-        user.status = req.body.status;
-        user.avatar = req.file ? req.file.filename : user.avatar;
+        if (user) {
+            user.name = req.body.name;
+            user.bio = req.body.bio;
+            user.status = req.body.status;
+            user.avatar = req.file ? req.file.filename : user.avatar;
+        }
     
         const updatedUser = await user.save();
     
         res.status(200).json(updatedUser);
   } catch (error) {
     console.log(error);
-    res.status(500).send("Server error");
+    res.status(500).send("Serversss error");
   }
 };
 

@@ -25,7 +25,7 @@ function ImageCard(props) {
   const user = JSON.parse(localStorage.getItem('user'))
   const imgSrc = photo && require(`../../assets/images/${photo}`) 
   const avatarSrc = avatar ? require(`../../assets/profile/${avatar}`) : defaultUser
-  const [numLikes, setNumLikes] = useState(likes.length)
+  const [numLikes, setNumLikes] = useState(likes?.length)
   
   /**
    * Like An Image

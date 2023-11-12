@@ -85,9 +85,9 @@ router.put("/unlike/:id", protect, unLikeImg);
 router.delete("/user_images/:photoId", protect, removeImg);
 
 // @route   api/images/user_images/:photoId
-// @method  PUT
+// @method  POST
 // @desc    Edit An Image
 // @access  Private
-router.put("/user_images/:photoId", protect, editImg);
+router.post("/user_images/:photoId", [upload.single('photo'), protect], editImg);
 
 module.exports = router;

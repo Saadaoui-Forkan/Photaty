@@ -38,7 +38,7 @@ function PhotoProfile({ profile }) {
     }
   };
 
-  // Updata User Data
+  // Update User Data
   const handleSave = (e) => {
     e.preventDefault();
 

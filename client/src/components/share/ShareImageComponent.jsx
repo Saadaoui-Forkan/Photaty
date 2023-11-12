@@ -26,13 +26,13 @@ function ShareImageComponent({
       >
         {error && <Alert error={error} />}
         <div className="image-upload">
-          {show && <input
+          <input
             name="photo"
             type="file"
             id="formId"
             accept="image/*"
             onChange={onInputChange}
-          />}
+          />
         </div>
         <input
           type="text"

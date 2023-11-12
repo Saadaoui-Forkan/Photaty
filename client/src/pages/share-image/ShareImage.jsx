@@ -62,7 +62,6 @@ function ShareImage() {
             setImageTitle={setImageTitle}
             setImageDescription={setImageDescription}
             error={error}
-            show={true}
         />
     </div>
   )

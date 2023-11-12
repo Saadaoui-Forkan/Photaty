@@ -151,22 +151,19 @@ const removeImg = async (req, res) => {
   }
 };
 
-// Edit Image
+// Update Image
 const editImg = async (req, res) => {
   try {
-    const updatedPost = await Image.findByIdAndUpdate(
-      req.params.photoId,
-      {
-        $set: {
-          title: req.body.title,
-          description: req.body.description,
-        },
-      },
-      { new: true }
-    );
+    const post = await Image.findById(req.params.photoId)
+    
+    post.title = req.body.title
+    post.description = req.body.description
+    post.photo = req.file ? req.file.filename : post.photo;
+    
+    const updatedPost = await post.save()
     res.status(200).json(updatedPost);
   } catch (error) {
-    res.status(500).send("Server error");
+    res.status(500).send("Server error" + error.message);
   }
 };
 

@@ -28,10 +28,10 @@ function Navbar() {
         setMe(res?.data);
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data);
     }
   };
-  
+  // console.log(me)
   return (
     <nav className="navbar">
       {user ? <NavbarProfile me={me}/> : ""}

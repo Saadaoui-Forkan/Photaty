@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import HeaderProfile from '../../components/profile/HeaderProfile';
 import Navbar from '../../components/navbar/Navbar';
-import ShareImageComponent from '../../components/share/ShareImageComponent';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
@@ -9,16 +8,9 @@ function EditImage() {
   const user = JSON.parse(localStorage.getItem("user"));
   const { photo } = useParams();
   const [photos, setPhotos] = useState([]);
-  const [updatedPhoto, setUpdatedPhoto] = useState({
-    title: "",
-    description: "",
-  });
-  const { title, description } = updatedPhoto;
-  const onChange = (e) => {
-    setUpdatedPhoto({ ...updatedPhoto, [e.target?.name]: e.target.value });
-  };
+  const [data, setData] = useState([]);
   const navigate = useNavigate();
-
+  
   /**
    * Get The Current Image
    */
@@ -40,6 +32,7 @@ function EditImage() {
       .catch((err) => console.error(err.response.data.msg));
   };
   const current_photo = photos.find((p) => p._id === photo);
+  // console.log(current_photo)
   const imageSrc = current_photo?.photo
     ? require(`../../assets/images/${current_photo.photo}`)
     : null;
@@ -47,17 +40,44 @@ function EditImage() {
   /**
    * Update Image Informations
    */
+  const [image, setImage] = useState(imageSrc)
+  const [imagePhoto, setImagePhoto] = useState(null)
+  const [title, setTitle] = useState("")
+  const [description, setDescription] = useState("")
+  // console.log(imagePhoto?.name)
+  useEffect(() => {
+    if (current_photo) {
+      setTitle(current_photo?.title || "");
+      setDescription(current_photo?.description || "");
+      setImage(imageSrc || "");
+    }
+  }, [current_photo, imageSrc]);
+
+  // Handle Change Photo 
+  const handleFileChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setImage(URL.createObjectURL(e.target.files[0]));
+      setImagePhoto(e.target.files[0]);
+    }
+  };
   const updateImg = (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+    if (imagePhoto) {
+      formData.append("photo", imagePhoto, imagePhoto?.name);
+    }
+    // formData.append("photo", imagePhoto)
     axios
-      .put(`/api/images/user_images/${current_photo._id}`, updatedPhoto, {
+      .post(`/api/images/user_images/${current_photo?._id}`, formData, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
           "x-auth-token": user.data?.token,
         },
       })
       .then((res) => {
-        setUpdatedPhoto(res.data);
+        setData(res.data);
         navigate("/");
       })
       .catch((error) => console.error(error));
@@ -69,17 +89,28 @@ function EditImage() {
       <Navbar />
       <div className="share-container">
         <div className="share-img">
-          <img alt={imageSrc} src={imageSrc} />
+          <img alt={image} src={image} />
         </div>
-        <form className="share-form-container" onSubmit={(e) => updateImg(e)}>
-          <div className="image-upload"></div>
+        <form 
+          encType="multipart/form-data"
+          className="share-form-container" 
+          onSubmit={(e) => updateImg(e)}
+        >
+          <div className="image-upload">
+          <input
+            name="photo"
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+          />
+          </div>
           <input
             type="text"
             className="share-title"
             placeholder="Title ..."
             name="title"
             value={title}
-            onChange={onChange}
+            onChange={(e)=>setTitle(e.target.value)}
           />
 
           <textarea
@@ -88,7 +119,7 @@ function EditImage() {
             placeholder="Image Description ..."
             name="description"
             value={description}
-            onChange={onChange}
+            onChange={e=>setDescription(e.target.value)}
           />
 
           <button className="submit" type="submit">
