@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './views.css'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment'
@@ -8,8 +8,8 @@ import defaultUser from "../../assets/photaty/avatar-profile.png"
 
 function ImageCard(props) {
   const navigate = useNavigate();
-  const [error, setError] = useState('')
-  const [like, setLike] = useState([])
+  const [error, setError] = useState("");
+  const [like, setLike] = useState([]);
   const {
     photo,
     title,
@@ -20,73 +20,60 @@ function ImageCard(props) {
     likes,
     edit_remove,
     handleRemove,
+    userId,
   } = props;
-  const user = JSON.parse(localStorage.getItem('user'))
-  const imgSrc = photo && require(`../../assets/images/${photo}`) 
-  const avatarSrc = avatar ? require(`../../assets/profile/${avatar}`) : defaultUser
-  const [numLikes, setNumLikes] = useState(likes?.length)
-  
-  /**
-   * Like An Image
-  */
-const likeImage = async (id) => {
-  if (!user) {
-    navigate("/login");
-    return;
-  }
-  
-  await axios
-    .put(`/api/images/like/${id}`, like, {
-      headers: {
-        "Content-Type": "application/json",
-        "x-auth-token": user.data.token,
-      },
-    })
-    .then((res) => {
-      setLike(res.data)
-      setNumLikes(numLikes+1)
-    })
-    .catch((err) => {
-      setError(err.response.data.msg);
-      setTimeout(()=>{
-        setError(null)
-      }, 1500)
-    }); 
-};
+  const user = JSON.parse(localStorage.getItem("user"));
+  const imgSrc = photo && require(`../../assets/images/${photo}`);
+  const avatarSrc = avatar
+    ? require(`../../assets/profile/${avatar}`)
+    : defaultUser;
+  const [numLikes, setNumLikes] = useState(likes?.length);
+  const [buttonColor, setButtonColor] = useState(false);
 
   /**
-   * Unlike An Image
-  */
-  const unLikeImage = async(id) => {
+   * HandleLike An Image
+   */
+  const handleLikeImage = async (id) => {
     if (!user) {
       navigate("/login");
       return;
-    };
-  
+    }
+
     await axios
-    .put(`/api/images/unlike/${id}`, like, {
-      headers: {
-        "Content-Type": "application/json",
-        "x-auth-token": user.data.token,
-      },
-    })
-    .then((res) => {
-      setLike(res.data)
-      setNumLikes(numLikes-1)
-    })
-    .catch((err) => {
-      setError(err.response.data.msg)
-      setTimeout(()=>{
-        setError(null)
-      }, 1500)
-    }); 
+      .put(`/api/images/like/${id}`, like, {
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": user.data.token,
+        },
+      })
+      .then((res) => {
+        setLike(res.data);
+        setNumLikes(res.data.likes.length);
+        setButtonColor(res.data.likes.some((item) => item.user === userId));
+      })
+      .catch((err) => {
+        setError(err.response.data.msg);
+        setTimeout(() => {
+          setError(null);
+        }, 1500);
+      });
+  };
+  /**
+   * Handle Change Icon Color
+   */
+  const handleLikedColor = () => {
+    const isLiked = likes.filter((item) => item.user === userId);
+    setButtonColor(isLiked.length > 0);
   };
 
+  useEffect(() => {
+    handleLikedColor();
+  }, [likes, userId]);
   return (
     <div className="menu">
       {edit_remove ? (
         <>
-          <div className="delete change" onClick={()=>handleRemove(imageId)}>
+          <div className="delete change" onClick={() => handleRemove(imageId)}>
             <i className="fa-solid fa-trash"></i>
           </div>
           <div className="edit change">
@@ -99,11 +86,7 @@ const likeImage = async (id) => {
         ""
       )}
       <div className="menu-img">
-        <img
-          src={imgSrc}
-          alt={`${title}`}
-          className="img"
-        />
+        <img src={imgSrc} alt={`${title}`} className="img" />
         <span className="read-more">
           <Link to={`/${imageId}`}>
             <i className="fa-regular fa-square-plus"></i>
@@ -122,14 +105,15 @@ const likeImage = async (id) => {
       </div>
 
       <div className="menu-like">
-        {error && <Alert error={error} />}
-        <div className="like" onClick={() => likeImage(imageId)}>
+        <div
+          className={buttonColor ? "like isLike" : "like"}
+          onClick={() => {
+            handleLikeImage(imageId);
+          }}
+        >
           <i className="fa-regular fa-thumbs-up"></i>
-          
         </div>
-        <div className="dislike">
-          {numLikes === 0 ? "" : numLikes}
-        </div>
+        {numLikes === 0 ? "" : <div className="dislike">{numLikes}</div>}
       </div>
     </div>
   );

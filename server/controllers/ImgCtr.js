@@ -98,7 +98,7 @@ const handleLikeImg = async (req, res) => {
     if (!likedPost) {
       post.likes.unshift({ user: req.user.id });
       await post.save();
-      res.status(200).json({ message: "post is liked" })
+      res.status(200).json(post)
     } else {
       const removeIndex = post.likes
         .map((like) => like.user.toString())
@@ -106,7 +106,7 @@ const handleLikeImg = async (req, res) => {
 
       post.likes.splice(removeIndex, 1)
       await post.save();
-      res.status(200).json({ message: "post is disliked" })
+      res.status(200).json(post)
     }
      
   } catch (err) {

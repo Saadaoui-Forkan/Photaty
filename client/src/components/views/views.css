@@ -84,10 +84,10 @@
     display: flex;
     justify-content: space-around;
     background-color: #eee;
-    width: 100px;
+    width: 70px;
     margin: auto;
     padding: 3px;
-    border-radius: 10px;
+    border-radius: 15px 0 0 15px;
     color: #333;
 }
 .dislike {
@@ -96,6 +96,9 @@
 }
 .like i, .dislike i {
     cursor: pointer
+}
+.isLike {
+    color: var(--color4)
 }
 .header {
     display: flex;

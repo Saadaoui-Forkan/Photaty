@@ -21,6 +21,7 @@ function Home() {
       console.error(error);
     }
   };
+  // console.log(images)
   return (
     <>
       <Navbar />
@@ -38,6 +39,7 @@ function Home() {
                 avatar={img?.user?.avatar}
                 imageId={img._id}
                 likes={img.likes}
+                userId={img.user._id}
               />
             ))
           ) : (
