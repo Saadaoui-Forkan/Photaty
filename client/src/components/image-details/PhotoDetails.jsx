@@ -1,19 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import moment from 'moment'
 import avatar from '../../assets/photaty/avatar-profile.png'
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-import Alert from "../alert/Alert";
 
 function PhotoDetails({ imageId }) {
   // console.log(imageId)
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [like, setLike] = useState([]);
-  const [likes, setLikes] = useState(like.length);
   const user = JSON.parse(localStorage.getItem("user"));
   const [numLikes, setNumLikes] = useState(imageId.likes?.length);
-  // const [buttonColor, setButtonColor] = useState(false);
+  const [buttonColor, setButtonColor] = useState(false);
 
   const imgDetailsSrc = imageId?.photo
     ? require(`../../assets/images/${imageId.photo}`)
@@ -40,7 +38,7 @@ function PhotoDetails({ imageId }) {
       .then((res) => {
         setLike(res.data);
         setNumLikes(res.data.likes.length);
-        // setButtonColor(res.data.likes.some((item) => item.user === imageId._id));
+        setButtonColor(res.data.likes.some((item) => item.user === imageId.user._id));
       })
       .catch((err) => {
         setError(err.response.data.msg);
@@ -50,7 +48,18 @@ function PhotoDetails({ imageId }) {
       });
   };
 
-  
+  /**
+   * Handle Change Icon Color
+   */
+  const handleLikedColor = () => {
+    const isLiked = imageId.likes.filter((item) => item.user === imageId._id);
+    setButtonColor(isLiked.length > 0);
+  };
+
+  useEffect(() => {
+    handleLikedColor();
+  }, [imageId.likes, imageId._id]);
+
   return (
     <div className="image-details">
       <div className="image-container">
@@ -66,7 +75,7 @@ function PhotoDetails({ imageId }) {
         </div>
         <div className="likes">
         <div
-          className={ "like"}
+          className={buttonColor ? "like isLiked" : "like"}
           onClick={() => {
             handleLikeImage(imageId._id);
           }}
