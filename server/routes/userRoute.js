@@ -1,5 +1,10 @@
 const router = require('express').Router()
-const { registerUser, loginUser, getCurrentUser, updateProfile } = require('../controllers/userCtr')
+const {
+  registerUser,
+  loginUser,
+  getCurrentUser,
+  updateProfile,
+} = require("../controllers/userCtr");
 const { check } = require('express-validator')
 const  protect  = require('../middleware/AuthMiddleware')
 const multer = require('multer')

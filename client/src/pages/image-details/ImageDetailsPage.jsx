@@ -26,6 +26,7 @@ function ImageDetails() {
       console.error(error.message)
     }
   };
+  console.log(imageId)
   return (
     <>
       <Navbar />
