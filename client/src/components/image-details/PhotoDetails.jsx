@@ -11,7 +11,7 @@ function PhotoDetails({ imageId }) {
   const [like, setLike] = useState([]);
   const user = JSON.parse(localStorage.getItem("user"));
   const [numLikes, setNumLikes] = useState(imageId.likes?.length);
-  const [buttonColor, setButtonColor] = useState(false);
+  const [buttonColor, setButtonColor] = useState(imageId.likes.some((item) => item.user === imageId._id));
 
   const imgDetailsSrc = imageId?.photo
     ? require(`../../assets/images/${imageId.photo}`)
@@ -48,18 +48,6 @@ function PhotoDetails({ imageId }) {
       });
   };
 
-  /**
-   * Handle Change Icon Color
-   */
-  const handleLikedColor = () => {
-    const isLiked = imageId.likes.filter((item) => item.user === imageId._id);
-    setButtonColor(isLiked.length > 0);
-  };
-
-  useEffect(() => {
-    handleLikedColor();
-  }, [imageId.likes, imageId._id]);
-
   return (
     <div className="image-details">
       <div className="image-container">
@@ -74,16 +62,16 @@ function PhotoDetails({ imageId }) {
           <h2 className="author-name">{imageId?.user?.name}</h2>
         </div>
         <div className="likes">
-        <div
-          className={buttonColor ? "like isLiked" : "like"}
-          onClick={() => {
-            handleLikeImage(imageId._id);
-          }}
-        >
-          <i className="fa-regular fa-thumbs-up"></i>
+          <div
+            className={buttonColor ? "like isLiked" : "like"}
+            onClick={() => {
+              handleLikeImage(imageId._id);
+            }}
+          >
+            <i className="fa-solid fa-thumbs-up"></i>
+          </div>
+          {numLikes === 0 ? "" : <div className="dislike">{numLikes}</div>}
         </div>
-        {numLikes === 0 ? "" : <div className="dislike">{numLikes}</div>}
-      </div>
       </div>
 
       <div className="image-details-info-2">

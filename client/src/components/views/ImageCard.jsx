@@ -28,7 +28,7 @@ function ImageCard(props) {
     ? require(`../../assets/profile/${avatar}`)
     : defaultUser;
   const [numLikes, setNumLikes] = useState(likes?.length);
-  const [buttonColor, setButtonColor] = useState(false);
+  const [buttonColor, setButtonColor] = useState(likes.some((item) => item.user === userId));
 
   /**
    * HandleLike An Image
@@ -58,17 +58,7 @@ function ImageCard(props) {
         }, 1500);
       });
   };
-  /**
-   * Handle Change Icon Color
-   */
-  const handleLikedColor = () => {
-    const isLiked = likes.filter((item) => item.user === userId);
-    setButtonColor(isLiked.length > 0);
-  };
-
-  useEffect(() => {
-    handleLikedColor();
-  }, [likes, userId]);
+  console.log(buttonColor)
   return (
     <div className="menu">
       {edit_remove ? (
@@ -111,7 +101,7 @@ function ImageCard(props) {
             handleLikeImage(imageId);
           }}
         >
-          <i className="fa-regular fa-thumbs-up"></i>
+          <i className="fa-solid fa-thumbs-up"></i>
         </div>
         {numLikes === 0 ? "" : <div className="dislike">{numLikes}</div>}
       </div>

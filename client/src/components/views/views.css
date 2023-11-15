@@ -90,6 +90,9 @@
     border-radius: 15px 0 0 15px;
     color: #333;
 }
+.like {
+    color: #8e8b8b;
+}
 .dislike {
     border-left: 1px solid #8e8b8b;
     padding-left: 8px;

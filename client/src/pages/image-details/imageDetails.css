@@ -60,7 +60,10 @@
   font-size: 20px;
   color: var(--color1);
 }
-.isLiked {
+.like {
+  color: #8e8b8b;
+}
+.like.isLiked {
   color: var(--color4)
 }
 
