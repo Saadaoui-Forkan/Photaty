@@ -3,7 +3,6 @@ import './views.css'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment'
 import axios from "axios";
-import Alert from "../alert/Alert";
 import defaultUser from "../../assets/photaty/avatar-profile.png"
 
 function ImageCard(props) {
@@ -49,7 +48,7 @@ function ImageCard(props) {
       .then((res) => {
         setLike(res.data);
         setNumLikes(res.data.likes.length);
-        setButtonColor(!buttonColor);
+        setButtonColor(prevBtn => !prevBtn);
       })
       .catch((err) => {
         setError(err.response.data.msg);
@@ -58,7 +57,9 @@ function ImageCard(props) {
         }, 1500);
       });
   };
-  console.log(buttonColor)
+  useEffect(() => {
+    setButtonColor(likes.some((item) => item.user === userId));
+  }, [likes, userId]);
   return (
     <div className="menu">
       {edit_remove ? (

@@ -4,15 +4,12 @@ import avatar from '../../assets/photaty/avatar-profile.png'
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
-function PhotoDetails({ imageId }) {
-  // console.log(imageId)
+function PhotoDetails({ imageId, user, userId }) {
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [like, setLike] = useState([]);
-  const user = JSON.parse(localStorage.getItem("user"));
   const [numLikes, setNumLikes] = useState(imageId.likes?.length);
-  const [buttonColor, setButtonColor] = useState(imageId.likes.some((item) => item.user === imageId._id));
-
+  const [buttonColor, setButtonColor] = useState(imageId.likes.some((item) => item.user === userId));
   const imgDetailsSrc = imageId?.photo
     ? require(`../../assets/images/${imageId.photo}`)
     : "";

@@ -5,7 +5,9 @@ import axios from "axios";
 import Spinner from "../../components/spinner/Spinner";
 
 function Home() {
+  const user = JSON.parse(localStorage.getItem("user"));
   const [images, setImages] = useState([]);
+  const [currUser, setCurrUser] = useState([])
   /**
    * Get all images
    */
@@ -21,7 +23,25 @@ function Home() {
       console.error(error);
     }
   };
-  // console.log(images)
+
+  /**
+   * Get Current User
+   */
+  useEffect(() => {
+    getCurrentUser();
+  }, []);
+  const getCurrentUser = async () => {
+    try {
+      const res = await axios.get(`api/users/me`,{
+        headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": user?.data?.token,
+      }});
+      setCurrUser(res?.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <>
       <Navbar />
@@ -39,7 +59,7 @@ function Home() {
                 avatar={img?.user?.avatar}
                 imageId={img._id}
                 likes={img.likes}
-                userId={img.user._id}
+                userId={currUser._id}
               />
             ))
           ) : (
