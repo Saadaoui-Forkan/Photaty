@@ -97,7 +97,7 @@
 .like i, .dislike i {
     cursor: pointer
 }
-.isLike {
+.like.isLike {
     color: var(--color4)
 }
 .header {
