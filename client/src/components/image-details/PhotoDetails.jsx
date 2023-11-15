@@ -38,6 +38,7 @@ function PhotoDetails({ imageId }) {
       .then((res) => {
         setLike(res.data);
         setNumLikes(res.data.likes.length);
+        setButtonColor(!buttonColor);
       })
       .catch((err) => {
         setError(err.response.data.msg);
@@ -77,7 +78,6 @@ function PhotoDetails({ imageId }) {
           className={buttonColor ? "like isLiked" : "like"}
           onClick={() => {
             handleLikeImage(imageId._id);
-            setButtonColor(!buttonColor)
           }}
         >
           <i className="fa-regular fa-thumbs-up"></i>

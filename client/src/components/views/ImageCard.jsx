@@ -49,6 +49,7 @@ function ImageCard(props) {
       .then((res) => {
         setLike(res.data);
         setNumLikes(res.data.likes.length);
+        setButtonColor(!buttonColor);
       })
       .catch((err) => {
         setError(err.response.data.msg);
@@ -108,7 +109,6 @@ function ImageCard(props) {
           className={buttonColor ? "like isLike" : "like"}
           onClick={() => {
             handleLikeImage(imageId);
-            setButtonColor(!buttonColor)
           }}
         >
           <i className="fa-regular fa-thumbs-up"></i>
