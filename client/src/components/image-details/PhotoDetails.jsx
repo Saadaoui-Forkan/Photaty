@@ -35,7 +35,7 @@ function PhotoDetails({ imageId, user, userId }) {
       .then((res) => {
         setLike(res.data);
         setNumLikes(res.data.likes.length);
-        setButtonColor(!buttonColor);
+        setButtonColor(prevBtn => !prevBtn);
       })
       .catch((err) => {
         setError(err.response.data.msg);
@@ -44,6 +44,10 @@ function PhotoDetails({ imageId, user, userId }) {
         }, 1500);
       });
   };
+  
+  useEffect(() => {
+    setButtonColor(imageId.likes.some((item) => item.user === userId));
+  }, [imageId.likes, userId]);
 
   return (
     <div className="image-details">

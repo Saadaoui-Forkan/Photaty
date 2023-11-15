@@ -46,6 +46,7 @@ function ImageDetails() {
       console.error(error);
     }
   };
+
   return (
     <>
       <Navbar />
