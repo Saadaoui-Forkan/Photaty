@@ -32,6 +32,9 @@ function Home() {
   }, []);
   const getCurrentUser = async () => {
     try {
+      if (!user) {
+        return;
+      }
       const res = await axios.get(`api/users/me`,{
         headers: {
         "Content-Type": "application/json",
