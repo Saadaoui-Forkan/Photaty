@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./connection.css";
 import logo from "../../assets/photaty/logo.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Alert from "../../components/alert/Alert";
 
@@ -26,11 +26,11 @@ function Login() {
       .post("/api/users/login", formData)
       .then((res) => {
         localStorage.setItem("user", JSON.stringify(res.data));
-        navigate("/");
         setFormData({
           email: "",
           password: "",
         });
+        navigate("/");
       })
       .catch((error) => {
         setError(error.response.data.message)

@@ -31,7 +31,6 @@ function Navbar() {
       console.log(error.response.data);
     }
   };
-  // console.log(me)
   return (
     <nav className="navbar">
       {user ? <NavbarProfile me={me}/> : ""}
